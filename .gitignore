@@ -1,2 +1,3 @@
 .vagrant/
-www/phpmyadmin
+/www/phpmyadmin
+/www/includes/db.php
