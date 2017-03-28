@@ -1,6 +1,6 @@
 <?php # test.php sandbox
 
-define('DBNAME', 't_online');
+/*define('DBNAME', 't_online');
 define('DBUSER', 'root');
 define('DBPASS', 'dre');
 
@@ -13,4 +13,14 @@ try {
 
 } catch(PDOException $e) {
 	echo $e->getMessage();
-}
+} */
+
+?>
+
+<form id="register" method="POST" enctype="multipart/form-data">
+	<p>please upload a file</p>
+	<input type="file" name="pic">
+
+	<input type="submit" name="save">
+
+</form>
