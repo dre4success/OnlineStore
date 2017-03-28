@@ -18,6 +18,9 @@ try {
 # max file size...
 define("MAX_FILE_SIZE", "2097152");
 
+#allowed extension...
+$ext = ["image/jpg", "image/jpeg", "image/png"];
+
 if(array_key_exists('save', $_POST)) {
 	$errors = [];
 	# be sure a file was selected..
@@ -28,6 +31,11 @@ if(array_key_exists('save', $_POST)) {
 	#  check file size..
 	if($_FILES['pic']['size'] > MAX_FILE_SIZE) {
 		$errors[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
+	}
+
+	#check extention...
+	if(!in_array($_FILES['pic']['type'], $ext)) {
+		$errors[] = "invalid file type";
 	}
 
 	if(empty($errors)) {
