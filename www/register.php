@@ -1,8 +1,26 @@
 <?php
 		$page_title = "Register";
-		
+
 		# include header
 		include 'includes/header.php';
+
+		if(array_key_exists('register', $_POST)) {
+			# cache errors
+			$errors = [];
+
+			# validate first name
+			if(empty($_POST['fname'])) {
+				$errors[] = "please enter a first name";
+			}
+
+			if(empty($errors)) {
+				//do database stuff
+			} else {
+				foreach ($errors as $err) {
+					echo $err;
+				}
+			}
+		}
 ?>
 	<div class="wrapper">
 		<h1 id="register-label">Admin Register</h1>
