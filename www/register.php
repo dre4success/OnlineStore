@@ -25,8 +25,12 @@
 				$errors[] = "please enter password";
 			}
 
-			if(empty($_POST['pword']) || $_POST['pword'] != $_POST['password']) {
+			if(empty($_POST['pword'])) {
 				$errors[] = "please confirm password";
+			}
+
+			if($_POST['pword'] != $_POST['password']) {
+				$errors[] = "passwords do not match";
 			}
 
 			if(empty($errors)) {
