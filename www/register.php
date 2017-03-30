@@ -50,7 +50,7 @@
 					':fn' => $clean['fname'],
 					':ln' => $clean['lname'],
 					':e' => $clean['email'],
-					':h' => $clean['password']
+					':h' => $hash
 					];
 
 					$stmt->execute($data);
