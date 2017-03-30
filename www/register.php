@@ -56,7 +56,9 @@
 		<form id="register"  action ="register.php" method ="POST">
 			<div>
 				<?php
-					if(isset($errors['fname'])) { echo '<span class="err">'. $errors['fname']. '</span>';}
+					//if(isset($errors['fname'])) { echo '<span class="err">'. $errors['fname']. '</span>';}
+					echo displayErrors($errors['fname']);
+					
 				?>
 				<label>first name:</label>
 				<input type="text" name="fname" placeholder="first name">
