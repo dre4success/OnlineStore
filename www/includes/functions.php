@@ -41,4 +41,54 @@
 			return $result;
 		}
 
+
+		function displayErrors($dummy) {
+				$result = "";
+
+			if(isset($dummy)) {
+				
+				$result = '<span class="err">'. $dummy. '</span>';
+
+			}
+			return $result;
+		}
+
+
+		function adminLogin($dbconn, $enter) {
+			
+
+			$hash = password_hash($enter['password'], PASSWORD_BCRYPT);
+
+			# prepared statement
+			$statement = $dbconn->prepare("SELECT email, hash FROM admin WHERE email=:em AND hash=:ha");
+
+			# bind params
+			$data = [
+						':em' => $enter['email'],
+						':ha' => $hash
+					];
+
+			$statement->execute($data);
+
+			$count = $statement->fetchColumn();
+
+			if($count == 1) {
+				
+
+				while($row = $statement->fetchAll()) {
+
+					$_SESSION['id'] = $row['admin_id'];
+					$_SESSION['email']	= $row['email'];
+
+					header("Location:home.php");
+				}
+			} else {
+
+					$login_error = "Wrong email or password";
+					header("Location:login.php?login_error=$login_error");
+			}
+
+			
+		}
+
 ?>		
