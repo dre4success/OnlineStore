@@ -1,5 +1,9 @@
-<?php
+<?php    
+		# title
 		$page_title = "Register";
+
+		# load db connection
+		include 'includes/db.php';
 
 		# include header
 		include 'includes/header.php';
@@ -31,6 +35,9 @@
 
 			if(empty($errors)) {
 				//do database stuff
+
+				# eliminate unwanted spaces from values in the $_POST array
+				$clean = array_map('trim', $_POST);
 			}
 		}
 ?>
