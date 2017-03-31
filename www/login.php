@@ -8,9 +8,11 @@
 
 		include 'includes/functions.php';
 
+					# error caching
+					$errors = [];
+
 			if(array_key_exists('register', $_POST)) {
-				# error caching
-				$errors = [];
+				
 
 				if(empty($_POST['email'])) {
 					$errors['email'] = "please enter your email";
@@ -37,14 +39,18 @@
 		<form id="register"  action ="login.php" method ="POST">
 			<div>
 				<?php
-					if(isset($errors['email'])) {echo '<span class="err">'. $errors['email']. '</span>';}
+					//if(isset($errors['email'])) {echo '<span class="err">'. $errors['email']. '</span>';}
+						$display = displayErrors($errors, 'email');
+						echo $display;
 				?>
 				<label>email:</label>
 				<input type="text" name="email" placeholder="email">
 			</div>
 			<div>
 				<?php
-					if(isset($errors['password'])) {echo '<span class="err">'. $errors['password']. '</span>';}
+					//if(isset($errors['password'])) {echo '<span class="err">'. $errors['password']. '</span>';}
+					$display = displayErrors($errors, 'password');
+					echo $display;
 				?>
 				<label>password:</label>
 				<input type="password" name="password" placeholder="password">
