@@ -42,47 +42,46 @@
 		}
 
 
-		function displayErrors($dummy) {
-				$result = "";
-
-			if(isset($dummy)) {
+		function displayErrors($dummy, $what) {
+					$result = "";
+						
+			if(isset($dummy[$what])) {
 				
-				$result = '<span class="err">'. $dummy. '</span>';
+				$result = '<span class="err">'. $dummy[$what]. '</span>';
 
 			}
-			return $result;
+					return $result; 
 		}
 
 
 		function adminLogin($dbconn, $enter) {
+					
+
+			//$hash = password_hash($enter['password'], PASSWORD_BCRYPT);
+
+			
+			# prepared statement
+			$statement = $dbconn->prepare("SELECT * FROM admin WHERE email=:em");
+			
+			# bind params
+			$statement->bindParam(":em", $enter['email']);
+			$statement->execute();
+
+			
+			$count = $statement->rowCount();
 			
 
-			$hash = password_hash($enter['password'], PASSWORD_BCRYPT);
-
-			# prepared statement
-			$statement = $dbconn->prepare("SELECT email, hash FROM admin WHERE email=:em AND hash=:ha");
-
-			# bind params
-			$data = [
-						':em' => $enter['email'],
-						':ha' => $hash
-					];
-
-			$statement->execute($data);
-
-			$count = $statement->fetchColumn();
-
 			if($count == 1) {
-				
+					$row = $statement->fetch(PDO::FETCH_ASSOC);
 
-				while($row = $statement->fetchAll()) {
+					if(password_verify($enter['password'], $row['hash'])){
 
-					$_SESSION['id'] = $row['admin_id'];
+					$_SESSION['id'] = $row['admin'];
 					$_SESSION['email']	= $row['email'];
 
 					header("Location:home.php");
 				}
-			} else {
+			 else {
 
 					$login_error = "Wrong email or password";
 					header("Location:login.php?login_error=$login_error");
@@ -90,5 +89,5 @@
 
 			
 		}
-
+	}
 ?>		
