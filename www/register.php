@@ -11,9 +11,10 @@
 		# include header
 		include 'includes/header.php';
 
+			$errors = [];
 		if(array_key_exists('register', $_POST)) {
 			# cache errors
-			$errors = [];
+			
 
 			# validate first name
 			if(empty($_POST['fname'])) {
@@ -55,18 +56,24 @@
 		<hr>
 		<form id="register"  action ="register.php" method ="POST">
 			<div>
-				<?php
+					<?php
+							
 					//if(isset($errors['fname'])) { echo '<span class="err">'. $errors['fname']. '</span>';}
-					echo displayErrors($errors['fname']);
+					$display = displayErrors($errors, 'fname');
+					echo $display;
+					?>
+				
 					
-				?>
+				
 				<label>first name:</label>
 				<input type="text" name="fname" placeholder="first name">
 				</label>
 			</div>
 			<div>
 				<?php
-					if(isset($errors['lname'])) {echo '<span class="err">'. $errors['lname']. '</span>';}
+					//if(isset($errors['lname'])) {echo '<span class="err">'. $errors['lname']. '</span>';}
+					$display = displayErrors($errors, 'lname');
+					echo $display;
 				?>
 				<label>last name:</label>
 				<input type="text" name="lname" placeholder="last name">
@@ -75,7 +82,9 @@
 
 			<div>
 				<?php
-					if(isset($errors['email'])) {echo '<span class="err">'. $errors['email']. '</span>';}
+					//if(isset($errors['email'])) {echo '<span class="err">'. $errors['email']. '</span>';}
+					$display = displayErrors($errors, 'email');
+					echo $display;
 				?>
 				<label>email:</label>
 				<input type="text" name="email" placeholder="email">
@@ -83,7 +92,9 @@
 			</div>
 			<div>
 				<?php
-					if(isset($errors['password'])) {echo '<span class="err">'. $errors['password']. '</span>';}
+					//if(isset($errors['password'])) {echo '<span class="err">'. $errors['password']. '</span>';}
+					$display = displayErrors($errors, 'password');
+					echo $display;
 				?>
 				<label>password:</label>
 				<input type="password" name="password" placeholder="password">
@@ -92,7 +103,9 @@
  
 			<div>
 				<?php
-					if(isset($errors['pword'])) {echo '<span class="err">'. $errors['pword']. '</span>';}
+					//if(isset($errors['pword'])) {echo '<span class="err">'. $errors['pword']. '</span>';}
+					$display = displayErrors($errors, 'pword');
+					echo $display;
 				?>
 				<label>confirm password:</label>	
 				<input type="password" name="pword" placeholder="password">
