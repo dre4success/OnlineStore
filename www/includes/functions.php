@@ -69,14 +69,13 @@
 
 			
 			$count = $statement->rowCount();
-			
 
 			if($count == 1) {
 					$row = $statement->fetch(PDO::FETCH_ASSOC);
 
 					if(password_verify($enter['password'], $row['hash'])){
-
-					$_SESSION['id'] = $row['admin'];
+					
+					$_SESSION['id'] = $row['admin_id'];
 					$_SESSION['email']	= $row['email'];
 
 					header("Location:home.php");
@@ -88,6 +87,6 @@
 			}
 
 			
-		}
+		} 
 	}
 ?>		
