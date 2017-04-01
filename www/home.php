@@ -1,4 +1,6 @@
 <?php
+		
+		session_start();
 		# title
 		$page_title = "Home";
 
@@ -11,7 +13,7 @@
 		# include header
 		include 'includes/view.php';
 
-
+		authenticate();
 ?>
 
 <div class="wrapper">
