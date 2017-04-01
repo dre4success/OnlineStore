@@ -89,4 +89,32 @@
 			
 		} 
 	}
+
+
+	function uploadFile($wobi, $sempe, $foto, $ten) {
+			
+
+		if($wobi[$foto]['size'] > MAX_FILE_SIZE) {
+			$sempe[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
+		}
+
+		if(!in_array($wobi[$foto]['type'])){
+			$sempe[] = "invalid file type";
+		}
+
+		# generate random number to append
+		$rnd = rand(0000000000, 9999999999);
+
+		# strip filename for spaces
+		$strip_name = str_replace(" ", "_", $wobi[$foto]['name']);
+
+		$filename = $rnd.$strip_name;
+		$destination = 'uploads/'.$filename;
+
+		if(!move_uploaded_file($wobi[$foto]['tmp_name'], $destination)) {
+		$sempe[] = "file upload failed";
+	}
+
+
+	}
 ?>		
