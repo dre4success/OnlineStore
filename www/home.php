@@ -14,10 +14,43 @@
 		include 'includes/view.php';
 
 		authenticate();
+
+		# caching error
+		$errors = [];
+
+		if(array_key_exists('enter', $_POST)){
+
+			if(empty($_POST['cat'])) {
+				$errors['cat'] = "Enter Product Category Here";
+			}
+
+			if(empty($errors)) {
+				//do database stuff
+
+				# eliminate unwanted spaces from values in the $_POST array
+				$clean = array_map('trim', $_POST);
+
+				insertCategory($conn, $clean);
+			}
+		}
 ?>
 
 <div class="wrapper">
 		<div id="stream">
+
+				<form id="register"  action ="home.php" method ="POST">
+
+						<?php 
+							$display = displayErrors($errors, 'cat'); 
+							echo $display;
+						?>
+					<label>Category: </label>
+					<input type="text" name="cat" placeholder="Enter Product Category">
+					
+
+					<input type="submit" name="enter" value="Enter">
+				</form>
+
 			<table id="tab">
 				<thead>
 					<tr>

@@ -124,4 +124,15 @@
 			header("Location:login.php");
 		}
 	}
+
+	function insertCategory($dbconn, $inn) {
+
+		# prepare statement
+		$stmt = $dbconn->prepare("INSERT INTO category(category_name) VALUES(:c)");
+
+		# bind Params and execute statement
+		$stmt->bindParam(":c", $inn['cat']);
+		$stmt->execute();
+
+	}
 ?>		
