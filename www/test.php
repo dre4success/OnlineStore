@@ -14,28 +14,30 @@ try {
 } catch(PDOException $e) {
 	echo $e->getMessage();
 } */
+	//include 'includes/functions.php';
+		# max file size...
+		define("MAX_FILE_SIZE", "2097152");
 
-# max file size...
-define("MAX_FILE_SIZE", "2097152");
+		#allowed extension...
+		$ext = ["image/jpg", "image/jpeg", "image/png"];
 
-#allowed extension...
-$ext = ["image/jpg", "image/jpeg", "image/png"];
-
-if(array_key_exists('save', $_POST)) {
-	$errors = [];
+	
+	if(array_key_exists('save', $_POST)) {
+		$errors = [];
+		//uploadFile($_FILES, $errors, 'pic', $ext);
 	# be sure a file was selected..
-	if(empty($_FILES['pic']['name'])) {
-		$errors[] = "please choose a file";
+		if(empty($_FILES['pic']['name'])) {
+		$errors['name'] = "please choose a file";
+	
 	}
-
 	#  check file size..
 	if($_FILES['pic']['size'] > MAX_FILE_SIZE) {
-		$errors[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
+		$errors['size'] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
 	}
 
 	#check extention...
 	if(!in_array($_FILES['pic']['type'], $ext)) {
-		$errors[] = "invalid file type";
+		$errors['type'] = "invalid file type";
 	}
 
 	#generate random number to append
@@ -48,8 +50,8 @@ if(array_key_exists('save', $_POST)) {
 	$destination = 'uploads/'.$filename;
 
 	if(!move_uploaded_file($_FILES['pic']['tmp_name'], $destination)) {
-		$errors[] = "file upload failed";
-	}
+		$errors['tmp_name'] = "file upload failed";
+	} 
 
 	if(empty($errors)) {
 		echo "done";
