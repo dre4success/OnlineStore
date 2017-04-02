@@ -90,33 +90,7 @@
 		} 
 	}
 
-
-	function uploadFile($wobi, $sempe, $foto, $ten) {
-			
-
-		if($wobi[$foto]['size'] > MAX_FILE_SIZE) {
-			$sempe[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
-		}
-
-		if(!in_array($wobi[$foto]['type'])){
-			$sempe[] = "invalid file type";
-		}
-
-		# generate random number to append
-		$rnd = rand(0000000000, 9999999999);
-
-		# strip filename for spaces
-		$strip_name = str_replace(" ", "_", $wobi[$foto]['name']);
-
-		$filename = $rnd.$strip_name;
-		$destination = 'uploads/'.$filename;
-
-		if(!move_uploaded_file($wobi[$foto]['tmp_name'], $destination)) {
-		$sempe[] = "file upload failed";
-	}
-
-
-	}
+	
 
 	function authenticate() {
 		if(!isset($_SESSION['id']) && !isset($_SESSION['email'])) {
@@ -135,4 +109,51 @@
 		$stmt->execute();
 
 	}
+
+	function fileUpload($dum_fil, $dum_err, $dum_name) {
+
+		define("MAX_FILE_SIZE", "2097152");
+
+		$ext = ["image/jpg", "image/jpeg", "image/png"];
+
+		
+	# be sure a file was selected..
+	if(empty($dum_fil[$dum_name]['name'])) {
+	$dum_err[] = "please choose a file";
+	}
+
+	#  check file size..
+	if($dum_fil[$dum_name]['size'] > MAX_FILE_SIZE) {
+		$dum_err[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
+	}
+
+		if(!in_array($dum_fil[$dum_name]['type'], $ext)) {
+		$dum_err[] = "invalid file type";
+	}
+
+		#generate random number to append
+	$rnd = rand(0000000000, 9999999999);
+
+	#strip filename for spaces
+	$strip_name = str_replace(" ", "_", $dum_fil[$dum_name]['name']);
+
+	$filename = $rnd.$strip_name;
+	$destination = 'uploads/'.$filename;
+
+	if(empty($dum_err)) {
+		
+		if(!move_uploaded_file($dum_fil[$dum_name]['tmp_name'], $destination)) {
+
+		$dum_err[] = "file upload failed";
+				}
+		echo "done";
+		}
+	 else {
+		foreach ($dum_err as $err) {
+			echo $err. '</br>';
+			}
+		}
+	
+	
+}
 ?>		
