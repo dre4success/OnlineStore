@@ -67,13 +67,7 @@
 					<div>
 				<input type="file" name="book">
 					</div>
-				
-
-				<!--</form>
-
-				<form id="register" action="add_product.php" method="POST">
-				-->
-
+					
 				<div>
 				<label>Book Title</label>
 					<input type="text" name="title" placeholder="Enter Book's Title">
