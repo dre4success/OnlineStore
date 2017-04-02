@@ -67,7 +67,7 @@
 				
 				<label>first name:</label>
 				<input type="text" name="fname" placeholder="first name">
-				</label>
+			
 			</div>
 			<div>
 				<?php
@@ -77,7 +77,7 @@
 				?>
 				<label>last name:</label>
 				<input type="text" name="lname" placeholder="last name">
-				</label>
+				
 			</div>
 
 			<div>
@@ -88,7 +88,7 @@
 				?>
 				<label>email:</label>
 				<input type="text" name="email" placeholder="email">
-				</label>
+				
 			</div>
 			<div>
 				<?php
