@@ -16,12 +16,13 @@
 		authenticate();
 
 		# caching errors
-		$errors = [];
+			
 
-
+			$errors = [];
 
 
 		if(array_key_exists('save', $_POST)) {
+
 
 			if(empty($_POST['title'])) {
 				$errors['title'] = "Enter Book's Title";
@@ -43,11 +44,15 @@
 				$errors['isbn'] = "Enter Book's ISBN";
  			}
 
+ 			if(empty($_POST['category'])) {
+ 				$errors['category'] = "Select Category";
+ 			}
+
  			if(empty($errors)) {
 
  				$clean = array_map('trim', $_POST);
 
-				insertCategory($conn, $clean);
+				forProduct($conn, $clean);
 
  			}
 		} 
@@ -60,7 +65,7 @@
 						
 					<p>Choose book</p>
 					<div>
-				<input type="file" name="pic">
+				<input type="file" name="book">
 					</div>
 				
 
@@ -99,7 +104,7 @@
 					<select name="category">
 						<option>Select Category</option>
 						<?php 
-							$statement = $conn->prepare("SELECT category_name FROM category");
+							$statement = $conn->prepare("SELECT * FROM category");
 							$statement->execute();
 						while($row = $statement->fetch(PDO::FETCH_ASSOC)) { ?>
 						<option value="<?php echo $row['category_name'] ?>"> <?php echo $row['category_name'] ?> </option>
