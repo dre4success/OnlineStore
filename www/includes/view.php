@@ -8,7 +8,7 @@
 <body>
 	<section>
 		<div class="mast">
-			<h1>T<span>SSB</span></h1>
+			<h1><a href="home.php">T<span>SSB</span> Home</a></h1>
 			<nav>
 				<ul class="clearfix">
 					<li><a href="add_category.php" class="selected">Add Category</a></li>
