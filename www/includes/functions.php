@@ -228,4 +228,31 @@
 			$stmt->execute($data);
 
 	}
+
+	function viewProduct($dbconn){
+				$result = "";
+
+		$stmt = $dbconn->prepare("SELECT * FROM books");
+		$stmt->execute();
+
+	
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+
+					$statement = $dbconn->prepare("SELECT category_name FROM category WHERE category_id=:ci");
+					
+					$statement->bindParam(":ci", $row['category_id']);
+					$statement->execute();
+					$row1 = $statement->fetch(PDO::FETCH_ASSOC);
+
+					$result .= '<tr><td>'.$row['title'].'</td>';
+					$result .= '<td>'.$row['author'].'</td>';
+					$result .= '<td>'.$row1['category_name'].'</td>';
+					$result .= '<td>'.$row['price'].'</td>';
+					$result .= '<td>'.$row['isbn'].'</td>';
+					$result .= '<td><img src="'.$row['file_path'].'" height="60" width="60"></td></tr>';
+				}
+
+					return $result;
+		
+	}
 ?>		
