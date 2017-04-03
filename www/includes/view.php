@@ -14,6 +14,7 @@
 					<li><a href="add_category.php" class="selected">Add Category</a></li>
 					<li><a href="#">View Category</a></li>
 					<li><a href="add_product.php" class="selected">Add Product</a></li>
+					<li><a href="add_product.php" class="selected">View Product</a></li>
 					<li><a href="#">Logout</a></li>
 				</ul>
 			</nav>
