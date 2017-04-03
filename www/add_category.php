@@ -36,6 +36,8 @@
 ?>
 
 <div class="wrapper">
+<h1 id="register-label">Add Category</h1>
+<hr>
 		<div id="stream">
 
 				<form id="register" action ="add_category.php" method ="POST">

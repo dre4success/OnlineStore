@@ -58,6 +58,8 @@
 		} 
 ?>
 <div class="wrapper">
+<h1 id="register-label">Add Product</h1>
+<hr>
 		<div id="stream">
 
 				<form id="register" method="POST" enctype="multipart/form-data">

@@ -16,6 +16,8 @@
 		authenticate();
 ?>
 		<div class="wrapper">
+		<h1 id="register-label">View Product</h1>
+		<hr>
 		<div id="stream">
 
 				

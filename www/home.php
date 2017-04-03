@@ -36,6 +36,8 @@
 ?>
 
 <div class="wrapper">
+<h1 id="register-label">Home</h1>
+<hr>
 		<div id="stream">
 
 				<form id="register"  action ="home.php" method ="POST">
