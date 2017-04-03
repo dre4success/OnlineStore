@@ -14,6 +14,13 @@
 		include 'includes/view.php';
 
 		authenticate();
+
+		if(isset($_GET['del'])) {
+
+			if($_GET['del'] = "delete") {
+				delCat($conn, $_GET['category_id']);
+			}
+		}
 ?>
 		<div class="wrapper">
 		<h1 id="register-label">View Category</h1>
@@ -27,6 +34,8 @@
 					<tr>
 						<th>Category ID</th>
 						<th>Category Name</th>
+						<th>Edit</th>
+						<th>Delete</th>
 						
 					</tr>
 				</thead>
@@ -42,6 +51,8 @@
 						<?php
 								$select = $conn->prepare("SELECT * FROM category");
 									$select->execute();
+
+
 
 								$view =	viewCat($select);
 								echo $view;

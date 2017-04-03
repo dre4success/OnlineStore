@@ -33,6 +33,8 @@
 				insertCategory($conn, $clean);
 			}
 		}
+
+		
 ?>
 
 <div class="wrapper">

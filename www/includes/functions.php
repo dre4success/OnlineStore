@@ -238,6 +238,8 @@
 	
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
+					$bk_id = $row['book_id'];
+
 					$statement = $dbconn->prepare("SELECT category_name FROM category WHERE category_id=:ci");
 					
 					$statement->bindParam(":ci", $row['category_id']);
@@ -249,7 +251,9 @@
 					$result .= '<td>'.$row1['category_name'].'</td>';
 					$result .= '<td>'.$row['price'].'</td>';
 					$result .= '<td>'.$row['isbn'].'</td>';
-					$result .= '<td><img src="'.$row['file_path'].'" height="60" width="60"></td></tr>';
+					$result .= '<td><img src="'.$row['file_path'].'" height="60" width="60"></td>';
+					$result .= '<td><a href="#">edit</a></td>';
+			$result .=	"<td><a href='view_product.php?del=delete&book_id=$bk_id'>delete</a></td></tr>";
 				}
 
 					return $result;
@@ -261,9 +265,26 @@
 
 		while($row = $sr->fetch(PDO::FETCH_ASSOC)){
 
-			$result .= '<tr><td>'.$row['category_id'].'</td>';
-			$result .= '<td>'.$row['category_name'].'</td></tr>';
+			$cat_id = $row['category_id'];
+
+			$result .= '<tr><td>'.$cat_id.'</td>';
+			$result .= '<td>'.$row['category_name'].'</td>';
+			$result .= '<td><a href="#">edit</a></td>';
+			$result .=	"<td><a href='view_category.php?del=delete&category_id=$cat_id'>delete</a></td></tr>";
+          		
 		}
 		return $result;
+	}
+
+	function delCat($dbconn, $what){
+		$stmt = $dbconn->prepare("DELETE FROM category WHERE category_id=:c");
+									$stmt->bindParam(":c", $what);
+									$stmt->execute();
+	}
+
+	function delPro($dbconn, $what){
+		$stmt = $dbconn->prepare("DELETE FROM books WHERE book_id=:c");
+									$stmt->bindParam(":c", $what);
+									$stmt->execute();
 	}
 ?>		

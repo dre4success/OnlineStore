@@ -14,6 +14,13 @@
 		include 'includes/view.php';
 
 		authenticate();
+
+		if(isset($_GET['del'])) {
+
+			if($_GET['del'] = "delete") {
+				delPro($conn, $_GET['book_id']);
+			}
+		}
 ?>
 		<div class="wrapper">
 		<h1 id="register-label">View Product</h1>
@@ -31,6 +38,8 @@
 						<th>price</th>
 						<th>Isbn</th>
 						<th>Book</th>
+						<th>Edit</th>
+						<th>Delete</th>
 					</tr>
 				</thead>
 				<tbody>
