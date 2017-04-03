@@ -2,7 +2,7 @@
 		
 		session_start();
 		# title
-		$page_title = "View Product";
+		$page_title = "View Category";
 
 		# load db connection
 		include 'includes/db.php';
@@ -16,7 +16,7 @@
 		authenticate();
 ?>
 		<div class="wrapper">
-		<h1 id="register-label">View Product</h1>
+		<h1 id="register-label">View Category</h1>
 		<hr>
 		<div id="stream">
 
@@ -25,12 +25,9 @@
 			<table id="tab">
 				<thead>
 					<tr>
-						<th>Title</th>
-						<th>Author</th>
-						<th>Category</th>
-						<th>price</th>
-						<th>Isbn</th>
-						<th>Book</th>
+						<th>Category ID</th>
+						<th>Category Name</th>
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -43,8 +40,12 @@
 					</tr> -->
 
 						<?php
-								$view = viewProduct($conn);
+								$select = $conn->prepare("SELECT * FROM category");
+									$select->execute();
+
+								$view =	viewCat($select);
 								echo $view;
+
 						?>
 
           		</tbody>

@@ -2,7 +2,7 @@
 		
 		session_start();
 		# title
-		$page_title = "Add Category";
+		$page_title = "Add Product";
 
 		# load db connection
 		include 'includes/db.php';

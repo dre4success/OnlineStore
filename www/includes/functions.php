@@ -255,4 +255,15 @@
 					return $result;
 		
 	}
+
+	function viewCat($sr){
+		$result = "";
+
+		while($row = $sr->fetch(PDO::FETCH_ASSOC)){
+
+			$result .= '<tr><td>'.$row['category_id'].'</td>';
+			$result .= '<td>'.$row['category_name'].'</td></tr>';
+		}
+		return $result;
+	}
 ?>		
