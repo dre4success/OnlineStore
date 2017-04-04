@@ -260,7 +260,8 @@
 					$result .= '<td><img src="'.$row['file_path'].'" height="60" width="60"></td>';
 					$result .= "<td><a href='view_product.php?action=edit&book_id=$bk_id&title=$title&author=$author&price=$price
 										&year_of_publication=$year&isbn=$isbn'>edit</a></td>";
-			$result .=	"<td><a href='view_product.php?del=delete&book_id=$bk_id'>delete</a></td></tr>";
+
+					$result .=	"<td><a href='view_product.php?del=delete&book_id=$bk_id'>delete</a></td></tr>";
 				}
 
 					return $result;
