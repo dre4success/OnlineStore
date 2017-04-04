@@ -32,7 +32,7 @@
 		<h1 id="register-label">View Category</h1>
 		<hr>
 		<div id="stream">
-				<br/><hr><br/>
+			
 				<?php
 					if(isset($_GET['action'])){
 

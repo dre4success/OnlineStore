@@ -21,12 +21,42 @@
 				delPro($conn, $_GET['book_id']);
 			}
 		}
+
+		if(array_key_exists('edit', $_POST)){
+			$clean = array_map('trim', $_POST);
+			editPro($conn, $clean);
+		}
 ?>
 		<div class="wrapper">
 		<h1 id="register-label">View Product</h1>
 		<hr>
 		<div id="stream">
 
+				
+				<?php
+					if(isset($_GET['action'])){
+
+						if($_GET['action'] = "edit"){
+
+				?>
+
+			<h3>Edit Product</h3>
+
+				<form id="register" action ="view_product.php" method ="POST">
+
+				<input type="text" name="til" placeholder="Book Title" value="<?php echo $_GET['title']; ?>">
+				<input type="text" name="auth" placeholder="Book Author" value="<?php echo $_GET['author']; ?>">
+				<input type="text" name="pri" placeholder="Price" value="<?php echo $_GET['price']; ?>">
+				<input type="text" name="yer" placeholder="Year" value="<?php echo $_GET['year_of_publication']; ?>">
+				<input type="text" name="bn" placeholder="ISBN" value="<?php echo $_GET['isbn']; ?>">
+				<input type="hidden" name="bk" value="<?php echo $_GET['book_id']; ?>">
+				<input type="submit" name="edit" value="edit">
+
+				</form>
+					<?php
+				}
+			}
+			?>
 				
 
 			<table id="tab">
@@ -36,6 +66,7 @@
 						<th>Author</th>
 						<th>Category</th>
 						<th>price</th>
+						<th>Year</th>
 						<th>Isbn</th>
 						<th>Book</th>
 						<th>Edit</th>

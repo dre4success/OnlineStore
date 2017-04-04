@@ -239,6 +239,11 @@
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
 					$bk_id = $row['book_id'];
+					$title = $row['title'];
+					$author = $row['author'];
+					$price = $row['price'];
+					$year = $row['year_of_publication'];
+					$isbn = $row['isbn'];
 
 					$statement = $dbconn->prepare("SELECT category_name FROM category WHERE category_id=:ci");
 					
@@ -250,9 +255,11 @@
 					$result .= '<td>'.$row['author'].'</td>';
 					$result .= '<td>'.$row1['category_name'].'</td>';
 					$result .= '<td>'.$row['price'].'</td>';
+					$result .= '<td>'.$row['year_of_publication'].'</td>';
 					$result .= '<td>'.$row['isbn'].'</td>';
 					$result .= '<td><img src="'.$row['file_path'].'" height="60" width="60"></td>';
-					$result .= '<td><a href="#">edit</a></td>';
+					$result .= "<td><a href='view_product.php?action=edit&book_id=$bk_id&title=$title&author=$author&price=$price
+										&year_of_publication=$year&isbn=$isbn'>edit</a></td>";
 			$result .=	"<td><a href='view_product.php?del=delete&book_id=$bk_id'>delete</a></td></tr>";
 				}
 
@@ -297,6 +304,22 @@
 					':cn'=> $edible['cat'],
 					':ci'=> $edible['cid']
 				];
+		$stmt->execute($data);
+	}
+
+	function editPro($dbconn, $edible){
+
+		$stmt = $dbconn->prepare("UPDATE books SET title=:ti, author=:au, price=:pr, year_of_publication=:yr, isbn=:is WHERE book_id=:b");
+
+		$data = [
+					':ti'=> $edible['til'],
+					':au'=> $edible['auth'],
+					':pr'=>	$edible['pri'],
+					':yr'=> $edible['yer'],
+					':is'=> $edible['bn'],
+					':b'=> $edible['bk']
+				];
+
 		$stmt->execute($data);
 	}
 ?>		
