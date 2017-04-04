@@ -15,7 +15,7 @@
 					<li><a href="view_category.php" class="selected">View Category</a></li>
 					<li><a href="add_product.php" class="selected">Add Product</a></li>
 					<li><a href="view_product.php" class="selected">View Product</a></li>
-					<li><a href="#">Logout</a></li>
+					<li><a href="logout.php">Logout</a></li>
 				</ul>
 			</nav>
 		</div>
