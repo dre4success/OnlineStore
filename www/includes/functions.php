@@ -266,10 +266,11 @@
 		while($row = $sr->fetch(PDO::FETCH_ASSOC)){
 
 			$cat_id = $row['category_id'];
+			$cat_name = $row['category_name'];
 
 			$result .= '<tr><td>'.$cat_id.'</td>';
 			$result .= '<td>'.$row['category_name'].'</td>';
-			$result .= '<td><a href="#">edit</a></td>';
+			$result .= "<td><a href='view_category.php?action=edit&category_id=$cat_id&category_name=$cat_name'>edit</a></td>";
 			$result .=	"<td><a href='view_category.php?del=delete&category_id=$cat_id'>delete</a></td></tr>";
           		
 		}
@@ -286,5 +287,16 @@
 		$stmt = $dbconn->prepare("DELETE FROM books WHERE book_id=:c");
 									$stmt->bindParam(":c", $what);
 									$stmt->execute();
+	}
+
+	function editCat($dbconn, $edible){
+
+		$stmt = $dbconn->prepare("UPDATE category SET category_name=:cn WHERE category_id=:ci");
+
+		$data = [
+					':cn'=> $edible['cat'],
+					':ci'=> $edible['cid']
+				];
+		$stmt->execute($data);
 	}
 ?>		

@@ -21,12 +21,38 @@
 				delCat($conn, $_GET['category_id']);
 			}
 		}
+
+		if(array_key_exists('edit', $_POST)){
+			$clean = array_map('trim', $_POST);
+			editCat($conn, $clean);
+		}
+
 ?>
 		<div class="wrapper">
 		<h1 id="register-label">View Category</h1>
 		<hr>
 		<div id="stream">
+				<br/><hr><br/>
+				<?php
+					if(isset($_GET['action'])){
 
+						if($_GET['action'] = "edit"){
+
+				?>
+
+			<h3>Edit Category</h3>
+
+				<form id="register" action ="view_category.php" method ="POST">
+
+				<input type="text" name="cat" placeholder="Category Name" value="<?php echo $_GET['category_name']; ?>">
+				<input type="hidden" name="cid" value="<?php echo $_GET['category_id']; ?>">
+				<input type="submit" name="edit" value="edit">
+
+				</form>
+					<?php
+				}
+			}
+			?>
 				
 
 			<table id="tab">
