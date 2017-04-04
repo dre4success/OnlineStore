@@ -71,31 +71,55 @@
 					</div>
 					
 				<div>
+				<?php
+					$display = displayErrors($errors, 'title');
+					echo $display;
+				?>
 				<label>Book Title</label>
 					<input type="text" name="title" placeholder="Enter Book's Title">
 				</div>
 
 				<div>
+				<?php
+					$display = displayErrors($errors, 'author');
+					echo $display;
+				?>
 				<label>Author</label>
 					<input type="text" name="author" placeholder="Enter Book's Author">
 				</div>
 
 				<div>
+				<?php
+					$display = displayErrors($errors, 'price');
+					echo $display;
+				?>
 				<label>Price</label>
 					<input type="text" name="price" placeholder="Enter Price for book">
 				</div>
 
 				<div>
+				<?php
+					$display = displayErrors($errors, 'year');
+					echo $display;
+				?>
 				<label>Year Of Publication</label>
 					<input type="text" name="year" placeholder="Enter Year of Publication">
 				</div>
 
 				<div>
+				<?php
+					$display = displayErrors($errors, 'isbn');
+					echo $display;
+				?>
 				<label>ISBN</label>
 					<input type="text" name="isbn" placeholder="Enter Book's ISBN">
 				</div>
 
 				<div>
+				<?php
+					$display = displayErrors($errors, 'category');
+					echo $display;
+				?>
 				<label>Select Category</label>
 					<select name="category">
 						<option>Select Category</option>

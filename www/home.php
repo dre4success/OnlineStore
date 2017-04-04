@@ -40,12 +40,9 @@
 <hr>
 		<div id="stream">
 
-				<form id="register"  action ="home.php" method ="POST">
+			<!---	<form id="register"  action ="home.php" method ="POST">
 
-						<?php 
-							$display = displayErrors($errors, 'cat'); 
-							echo $display;
-						?>
+						
 					<label>Category: </label>
 					<input type="text" name="cat" placeholder="Enter Product Category">
 					
@@ -81,7 +78,7 @@
 			<span>3</span>
 			<a href="#">2</a>
 		</div>
-	</div>
+	</div> -->
 
 	<?php
 		# inlude footer
