@@ -74,14 +74,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<!--	<tr>
-						<td>the knowledge gap</td>
-						<td>maja</td>
-						<td>January, 10</td>
-						<td><a href="#">edit</a></td>
-						<td><a href="#">delete</a></td>
-					</tr> -->
-
+				
 						<?php
 								$view = viewProduct($conn);
 								echo $view;

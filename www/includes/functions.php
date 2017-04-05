@@ -57,7 +57,7 @@
 		function adminLogin($dbconn, $enter) {
 					
 
-			//$hash = password_hash($enter['password'], PASSWORD_BCRYPT);
+			$result = [];
 
 			
 			# prepared statement
@@ -67,28 +67,24 @@
 			$statement->bindParam(":em", $enter['email']);
 			$statement->execute();
 
+			$row = $statement->fetch(PDO::FETCH_ASSOC);
 			
 			$count = $statement->rowCount();
 
-			if($count == 1) {
-					$row = $statement->fetch(PDO::FETCH_ASSOC);
-
-					if(password_verify($enter['password'], $row['hash'])){
+			if($count !== 1 || !password_verify($enter['password'], $row['hash'])){
 					
-					$_SESSION['id'] = $row['admin_id'];
-					$_SESSION['email']	= $row['email'];
-
-					header("Location:home.php");
-				}
-			 else {
-
-					$login_error = "Wrong email or password";
-					header("Location:login.php?login_error=$login_error");
+				$result[] = false;
+			} else{
+				$result[] = true;
+				$result[] = $row;
 			}
+					
+				return $result;
+		}	
 
-			
-		} 
-	}
+		function redirect($loca){
+			header("Location: ".$loca);
+		}
 
 	
 
@@ -209,7 +205,7 @@
 
 			$row = $state->fetch(PDO::FETCH_ASSOC);
 
-			$id = $row['category_id'];
+			$id = $row['category_id']; 
 
 			$stmt = $dbconn->prepare("INSERT INTO books(title, author, category_id, price, year_of_publication, isbn, file_path) 
 													VALUES(:ti, :au, :cat, :pr, :yr, :is, :fi)");			

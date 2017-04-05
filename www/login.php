@@ -1,4 +1,4 @@
-<?php 
+<?php
 		session_start();
 
 		$page_title = "Login";
@@ -28,7 +28,18 @@
 					#clean unwanted values in the $_POST ARRAY
 					$clean = array_map('trim', $_POST);
 
-					adminLogin($conn, $clean);
+					$chk = adminLogin($conn, $clean);
+
+					if($chk[0]){
+
+						$_SESSION['id'] = $chk[1]['admin_id'];
+						$_SESSION['email'] = $chk[1]['email'];
+						//print_r($_SESSION); exit();
+						header("Location: home.php");
+					} else
+					{
+						redirect("login.php?msg=invalid email or password");
+					}
 				}
 			}
 ?>
