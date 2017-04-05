@@ -22,15 +22,12 @@
 			}
 		}
 
-		if(array_key_exists('edit', $_POST)){
+		/*if(array_key_exists('edit', $_POST)){
 			$clean = array_map('trim', $_POST);
 			editPro($conn, $clean);
 		}
 ?>
-		<div class="wrapper">
-		<h1 id="register-label">View Product</h1>
-		<hr>
-		<div id="stream">
+		
 
 				
 				<?php
@@ -55,9 +52,12 @@
 				</form>
 					<?php
 				}
-			}
+			} */
 			?>
-				
+				<div class="wrapper">
+				<h1 id="register-label">View Product</h1>
+				<hr>
+				<div id="stream">
 
 			<table id="tab">
 				<thead>

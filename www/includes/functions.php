@@ -254,9 +254,7 @@
 					$result .= '<td>'.$row['year_of_publication'].'</td>';
 					$result .= '<td>'.$row['isbn'].'</td>';
 					$result .= '<td><img src="'.$row['file_path'].'" height="60" width="60"></td>';
-					$result .= "<td><a href='view_product.php?action=edit&book_id=$bk_id&title=$title&author=$author&price=$price
-										&year_of_publication=$year&isbn=$isbn'>edit</a></td>";
-
+					$result .= "<td><a href='edit.php?action=edit&book_id=$bk_id'>edit</a></td>";
 					$result .=	"<td><a href='view_product.php?del=delete&book_id=$bk_id'>delete</a></td></tr>";
 				}
 
@@ -306,11 +304,12 @@
 
 	function editPro($dbconn, $edible){
 
-		$stmt = $dbconn->prepare("UPDATE books SET title=:ti, author=:au, price=:pr, year_of_publication=:yr, isbn=:is WHERE book_id=:b");
+		$stmt = $dbconn->prepare("UPDATE books SET title=:ti, author=:au, category_id=:ci, price=:pr, year_of_publication=:yr, isbn=:is WHERE book_id=:b");
 
 		$data = [
 					':ti'=> $edible['til'],
 					':au'=> $edible['auth'],
+					':ci'=> $edible['cat'],
 					':pr'=>	$edible['pri'],
 					':yr'=> $edible['yer'],
 					':is'=> $edible['bn'],
@@ -318,5 +317,56 @@
 				];
 
 		$stmt->execute($data);
+
+		redirect("view_product.php");
 	}
-?>		
+
+
+		function getBookByID($dbconn, $bookID) {
+			$stmt = $dbconn->prepare("SELECT * FROM books WHERE book_id=:id");
+			$stmt->bindParam(':id', $bookID);
+
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+			return $row;
+	}
+
+	function doEditSelectCategory($dbconn,$catName){
+
+
+						$statement = $dbconn->prepare("SELECT * FROM category");
+						$statement->execute();
+
+						$result = "";
+						while($row = $statement->fetch(PDO::FETCH_ASSOC)) { 
+
+							$cat_id = $row['category_id'];
+							$cat_name = $row['category_name'];
+
+							#to skip the category_name chosen
+
+							if($cat_name == $catName) { continue; }
+
+						$result .= "<option value='$cat_id'>$cat_name</option>";
+
+		}
+
+
+		return $result;
+							
+					
+	}
+
+	function getCategoryByID($dbconn, $catid){
+
+			$stmt = $dbconn->prepare("SELECT * FROM category WHERE category_id=:id");
+			$stmt->bindParam(':id', $catid);
+
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+			return $row;
+	
+	}
+?>	
