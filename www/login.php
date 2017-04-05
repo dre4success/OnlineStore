@@ -35,7 +35,7 @@
 						$_SESSION['id'] = $chk[1]['admin_id'];
 						$_SESSION['email'] = $chk[1]['email'];
 						//print_r($_SESSION); exit();
-						header("Location: home.php");
+						redirect("home.php");
 					} else
 					{
 						redirect("login.php?msg=invalid email or password");
