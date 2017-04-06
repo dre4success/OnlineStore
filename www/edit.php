@@ -3,7 +3,7 @@
 
 			session_start();
 		# title
-		$page_title = "Edit Category";
+		$page_title = "Edit Product";
 
 		# load db connection
 		include 'includes/db.php';

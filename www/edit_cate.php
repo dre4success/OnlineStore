@@ -36,21 +36,30 @@
 
 ?>
 		<div class="wrapper">
-		<h1 id="register-label">View Category</h1>
+		<h1 id="register-label">Edit Category</h1>
 		<hr>
 		<div id="stream">
 			
 				
-			<h3>Edit Category</h3>
+			
 
 				<form id="register" action ="<?php echo "edit_cate.php?category_id=".$_GET['category_id']; ?>" method ="POST">
 
+				<div>
+				<label>Category Name</label>
 				<input type="text" name="cat" placeholder="Category Name" value="<?php echo $cat['category_name']; ?>">
+				</div>
 				<input type="hidden" name="cid" value="<?php echo $cat['category_id']; ?>">
 				<input type="submit" name="edit" value="edit">
 
 				</form>
+
+		</div>
+		</div>
 					
 	
-		
+	<?php
+
+		include 'includes/footer.php';
+	?>	
 				
