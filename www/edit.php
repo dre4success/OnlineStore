@@ -65,21 +65,50 @@
 
 				<form id="register" action = "<?php echo "edit.php?book_id=".$_GET['book_id']; ?>" method ="POST">
 
+				<div>
+				<label>Book Title</label>
 				<input type="text" name="til" placeholder="Book Title" value="<?php echo $item['title']; ?>">
+				</div>
+
+				<div>
+				<label>Author</label>
 				<input type="text" name="auth" placeholder="Book Author" value="<?php echo $item['author']; ?>">
+				</div>
+
+				<div>
+				<label>Select Category</label>
 				<select name="cat">
 					<option value="<?php echo $cat['category_id']; ?>"> <?php echo $cat['category_name']; ?> </option>
 					<?php 
 						$sel = doEditSelectCategory($conn, $cat['category_name']);
 						echo $sel;
 					?>
-
 				</select>
+				</div>
+
+				<div>
+				<label>Price</label>
 				<input type="text" name="pri" placeholder="Price" value="<?php echo $item['price']; ?>">
+				</div>
+
+				<div>
+				<label>Year of Production</label>
 				<input type="text" name="yer" placeholder="Year" value="<?php echo $item['year_of_publication']; ?>">
+				</div>
+
+				<div>
+				<label>ISBN</label>
 				<input type="text" name="bn" placeholder="ISBN" value="<?php echo $item['isbn']; ?>">
+				</div>
+
 				<input type="hidden" name="bk" value="<?php echo $item['book_id']; ?>">
 				<input type="submit" name="edit" value="edit">
 
 				</form>
 					
+				</div>
+				</div>
+	<?php
+		# inlude footer
+		include 'includes/footer.php';
+	?>
