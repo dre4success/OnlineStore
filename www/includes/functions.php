@@ -249,7 +249,7 @@
 
 			$result .= '<tr><td>'.$cat_id.'</td>';
 			$result .= '<td>'.$row['category_name'].'</td>';
-			$result .= "<td><a href='view_category.php?action=edit&category_id=$cat_id&category_name=$cat_name'>edit</a></td>";
+			$result .= "<td><a href='edit_cate.php?category_id=$cat_id'>edit</a></td>";
 			$result .=	"<td><a href='view_category.php?del=delete&category_id=$cat_id'>delete</a></td></tr>";
           		
 		}
@@ -279,6 +279,8 @@
 					':ci'=> $edible['cid']
 				];
 		$stmt->execute($data);
+
+		redirect("view_category.php");
 	}
 
 	function editPro($dbconn, $edible){

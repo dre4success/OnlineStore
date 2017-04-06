@@ -15,7 +15,7 @@
 
 		authenticate();
 
-		if(isset($_GET['del'])) {
+	/*	if(isset($_GET['del'])) {
 
 			if($_GET['del'] = "delete") {
 				delCat($conn, $_GET['category_id']);
@@ -25,7 +25,7 @@
 		if(array_key_exists('edit', $_POST)){
 			$clean = array_map('trim', $_POST);
 			editCat($conn, $clean);
-		}
+		} */
 
 ?>
 		<div class="wrapper">
@@ -34,7 +34,7 @@
 		<div id="stream">
 			
 				<?php
-					if(isset($_GET['action'])){
+				/*	if(isset($_GET['action'])){
 
 						if($_GET['action'] = "edit"){
 
@@ -51,8 +51,8 @@
 				</form>
 					<?php
 				}
-			}
-			?>
+			} */
+			?> 
 				
 
 			<table id="tab">
