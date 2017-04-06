@@ -15,8 +15,8 @@
 
 		authenticate();
 
+		
 		# caching errors
-			
 
 			$errors = [];
 
@@ -38,14 +38,9 @@
 
 		if(!in_array($_FILES['book']['type'], $ext)) {
 		$errors[] = "invalid file type";
-		}
+			}
 
-	if(empty($errors)) {
 		
-		if(!move_uploaded_file($_FILES['book']['tmp_name'], $destination)) {
-
-		$errors[] = "file upload failed";
-			
 			if(empty($_POST['title'])) {
 				$errors['title'] = "Enter Book's Title";
 			}
@@ -70,15 +65,25 @@
  				$errors['category'] = "Select Category";
  			}
 
+ 			$chk = UploadFile($_FILES, 'book', 'uploads/');
+
+ 			if($chk[0]) {
+ 				$destination = $chk[1];
+ 			} else{
+ 				$errors['book'] = "file uploaded failed";
+ 			}
+
  			if(empty($errors)) {
 
  				$clean = array_map('trim', $_POST);
 
-				forProduct($conn, $clean);
+				forProduct($conn, $clean, $destination);
 
  			}
 		} 
 ?>
+
+
 <div class="wrapper">
 <h1 id="register-label">Add Product</h1>
 <hr>
@@ -86,9 +91,14 @@
 
 				<form id="register" method="POST" enctype="multipart/form-data">
 
-						
-					<p>Choose book</p>
-					<div>
+				<div>
+						<?php
+							$display = displayErrors($errors, 'book');
+							echo $display;
+						?>
+
+					<label>Choose book</label>
+					
 				<input type="file" name="book">
 					</div>
 					
