@@ -153,77 +153,54 @@
 	
 }
 
-	function forProduct($dbconn, $dirty){
+	function UploadFile($file, $name, $uploadDir) {
+		$data = [];
+	$rnd = rand (0000000000,9999999999);
 
-		define("MAX_FILE_SIZE", "2097152");
-
-		$ext = ["image/jpg", "image/jpeg", "image/png"];
-
-
-		$rnd = rand(0000000000, 9999999999);
-
-	#strip filename for spaces
-	$strip_name = str_replace(" ", "_", $_FILES['book']['name']);
+	$strip_name = str_replace ("","",$_FILES['book']['name']);
 
 	$filename = $rnd.$strip_name;
-	$destination = 'uploads/'.$filename;
+	$destination = $uploadDir .$filename;
 
-		if(array_key_exists('save', $_POST)) {
+	if (!move_uploaded_file($file[$name]['tmp_name'], $destination)){
+	$data[] = false;
+	} else {
+	$data[] = true;
+	$data[] = $destination;
+	}
 
-			if(empty($_FILES['book']['name'])) {
-			$errors[] = "please choose a file";
-			}
+	return $data;
+}
 
-	#  check file size..
-		if($_FILES['book']['size'] > MAX_FILE_SIZE) {
-		$errors[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
-		}
 
-		if(!in_array($_FILES['book']['type'], $ext)) {
-		$errors[] = "invalid file type";
-		}
+	function forProduct($dbconn, $dirty, $dest){
 
-	if(empty($errors)) {
-		
-		if(!move_uploaded_file($_FILES['book']['tmp_name'], $destination)) {
+		$state = $dbconn->prepare("SELECT category_id FROM category WHERE category_name=:ca");
 
-		$errors[] = "file upload failed";
-				}
-		echo "done";
-		}
-	 else {
-		foreach ($errors as $err) {
-			echo $err. '</br>';
-			}
-		}
-		} 
+		$state->bindParam(":ca", $dirty['category']);
+		$state->execute();
 
-			$state = $dbconn->prepare("SELECT category_id FROM category WHERE category_name=:ca");
+		$row = $state->fetch(PDO::FETCH_ASSOC);
 
-			$state->bindParam(":ca", $dirty['category']);
-			$state->execute();
+		$id = $row['category_id']; 
 
-			$row = $state->fetch(PDO::FETCH_ASSOC);
-
-			$id = $row['category_id']; 
-
-			$stmt = $dbconn->prepare("INSERT INTO books(title, author, category_id, price, year_of_publication, isbn, file_path) 
+		$stmt = $dbconn->prepare("INSERT INTO books(title, author, category_id, price, year_of_publication, isbn, file_path) 
 													VALUES(:ti, :au, :cat, :pr, :yr, :is, :fi)");			
 
 			#bind params
-			$data = [
-					':ti' => $dirty['title'],
-					':au' => $dirty['author'],
-					':cat' => $id,
-					':pr' => $dirty['price'],
-					':yr' => $dirty['year'],
-					':is' => $dirty['isbn'],
-					':fi' => $destination
-					];
+		$data = [
+				':ti' => $dirty['title'],
+				':au' => $dirty['author'],
+				':cat' => $id,
+				':pr' => $dirty['price'],
+				':yr' => $dirty['year'],
+				':is' => $dirty['isbn'],
+				':fi' => $dest
+				];
 
 			$stmt->execute($data);
+		}
 
-	}
 
 	function viewProduct($dbconn){
 				$result = "";
