@@ -20,10 +20,32 @@
 
 			$errors = [];
 
+			define("MAX_FILE_SIZE", "2097152");
+
+		$ext = ["image/jpg", "image/jpeg", "image/png"];
+
 
 		if(array_key_exists('save', $_POST)) {
 
+			if(empty($_FILES['book']['name'])) {
+			$errors[] = "please choose a file";
+			}
 
+	#  check file size..
+		if($_FILES['book']['size'] > MAX_FILE_SIZE) {
+		$errors[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
+		}
+
+		if(!in_array($_FILES['book']['type'], $ext)) {
+		$errors[] = "invalid file type";
+		}
+
+	if(empty($errors)) {
+		
+		if(!move_uploaded_file($_FILES['book']['tmp_name'], $destination)) {
+
+		$errors[] = "file upload failed";
+			
 			if(empty($_POST['title'])) {
 				$errors['title'] = "Enter Book's Title";
 			}
