@@ -15,12 +15,12 @@
 
 		authenticate();
 
-		if(isset($_GET['del'])) {
+	/*	if(isset($_GET['del'])) {
 
 			if($_GET['del'] = "delete") {
 				delPro($conn, $_GET['book_id']);
 			}
-		}
+		} */
 
 		/*if(array_key_exists('edit', $_POST)){
 			$clean = array_map('trim', $_POST);

@@ -231,8 +231,8 @@
 					$result .= '<td>'.$row['year_of_publication'].'</td>';
 					$result .= '<td>'.$row['isbn'].'</td>';
 					$result .= '<td><img src="'.$row['file_path'].'" height="60" width="60"></td>';
-					$result .= "<td><a href='edit.php?action=edit&book_id=$bk_id'>edit</a></td>";
-					$result .=	"<td><a href='view_product.php?del=delete&book_id=$bk_id'>delete</a></td></tr>";
+					$result .= "<td><a href='edit.php?book_id=$bk_id'>edit</a></td>";
+					$result .=	"<td><a href='delete_product.php?book_id=$bk_id'>delete</a></td></tr>";
 				}
 
 					return $result;
@@ -266,6 +266,8 @@
 		$stmt = $dbconn->prepare("DELETE FROM books WHERE book_id=:c");
 									$stmt->bindParam(":c", $what);
 									$stmt->execute();
+
+						redirect("view_product.php");
 	}
 
 	function editCat($dbconn, $edible){
