@@ -250,7 +250,7 @@
 			$result .= '<tr><td>'.$cat_id.'</td>';
 			$result .= '<td>'.$row['category_name'].'</td>';
 			$result .= "<td><a href='edit_cate.php?category_id=$cat_id'>edit</a></td>";
-			$result .=	"<td><a href='view_category.php?del=delete&category_id=$cat_id'>delete</a></td></tr>";
+			$result .=	"<td><a href='delete_cate.php?category_id=$cat_id'>delete</a></td></tr>";
           		
 		}
 		return $result;
@@ -260,6 +260,8 @@
 		$stmt = $dbconn->prepare("DELETE FROM category WHERE category_id=:c");
 									$stmt->bindParam(":c", $what);
 									$stmt->execute();
+									
+				redirect("view_category.php");
 	}
 
 	function delPro($dbconn, $what){
