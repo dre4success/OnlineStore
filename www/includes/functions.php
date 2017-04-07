@@ -406,4 +406,32 @@
 					return $result; 
 		}
 
+
+		function UserLogin($dbconn, $enter) {
+					
+
+			$result = [];
+
+			
+			# prepared statement
+			$statement = $dbconn->prepare("SELECT * FROM user WHERE email=:em");
+			
+			# bind params
+			$statement->bindParam(":em", $enter['email']);
+			$statement->execute();
+
+			$row = $statement->fetch(PDO::FETCH_ASSOC);
+			
+			$count = $statement->rowCount();
+
+			if($count !== 1 || !password_verify($enter['password'], $row['hash'])){
+					
+				$result[] = false;
+			} else{
+				$result[] = true;
+				$result[] = $row;
+			}
+					
+				return $result;
+		}	
 ?>	
