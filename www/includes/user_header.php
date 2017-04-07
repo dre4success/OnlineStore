@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="../styles/frontstyles.css">
     <title><?php echo $page_title ?></title>
 </head>
-<body id="home">
+<body id="<?php echo $body_id ?>">
   <!-- DO NOT TAMPER WITH CLASS NAMES! -->
 
   <!-- top bar starts here -->
