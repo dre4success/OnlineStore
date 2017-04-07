@@ -353,4 +353,23 @@
 			return $row;
 	
 	}
+
+	function doesUserEmailExist($dbconn, $email) {
+			$result = false;
+
+			$stmt = $dbconn->prepare("SELECT email FROM user WHERE email=:e");
+
+			#bind params
+			$stmt->bindParam(":e", $email);
+			$stmt->execute();
+
+			# get number of rows returned
+			$count = $stmt->rowCount();
+
+			if($count > 0) {
+				$result = true;
+			}
+			return $result;
+		}
+
 ?>	
