@@ -184,8 +184,8 @@
 
 		$id = $row['category_id']; 
 
-		$stmt = $dbconn->prepare("INSERT INTO books(title, author, category_id, price, year_of_publication, isbn, file_path) 
-													VALUES(:ti, :au, :cat, :pr, :yr, :is, :fi)");			
+		$stmt = $dbconn->prepare("INSERT INTO books(title, author, category_id, price, year_of_publication, isbn, file_path, flag) 
+													VALUES(:ti, :au, :cat, :pr, :yr, :is, :fi, :fg)");			
 
 			#bind params
 		$data = [
@@ -195,7 +195,8 @@
 				':pr' => $dirty['price'],
 				':yr' => $dirty['year'],
 				':is' => $dirty['isbn'],
-				':fi' => $dest
+				':fi' => $dest,
+				':fg' => $dirty['flag']
 				];
 
 			$stmt->execute($data);
