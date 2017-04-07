@@ -13,6 +13,8 @@
 		# include header
 		include 'includes/view.php';
 
+		$flag = ['Trending', 'Top-Selling'];
+
 		authenticate();
 
 		
@@ -64,6 +66,10 @@
  			if(empty($_POST['category'])) {
  				$errors['category'] = "Select Category";
  			}
+
+ 			if(empty($_POST['flag'])) {
+ 				$errors['flag'] = "Select either trending or top-selling for the book";
+  			}
 
  			$chk = UploadFile($_FILES, 'book', 'uploads/');
 
@@ -164,6 +170,20 @@
 					</select>
 				</div>
 
+					<div>
+							<?php
+								$display = displayErrors($errors, 'flag');
+								echo $display;
+							?>
+
+							<label>Types</label>
+							<select name="flag">
+									<option>Types</option>
+									<?php foreach ($flag as $fl) { ?>
+									<option value="<?php echo $fl; ?>"> <?php echo $fl; ?> </option>
+									<?php } ?>
+							</select>
+					</div>
 
 					<input type="submit" name="save" value="upload">
 
