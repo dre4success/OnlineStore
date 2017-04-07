@@ -46,11 +46,13 @@
 
 <div class="wrapper">
 		<h1 id="register-label">Admin Login</h1>
-		<hr>
+				<hr>
 		<form id="register"  action ="login.php" method ="POST">
 			<div>
 				<?php
-					//if(isset($errors['email'])) {echo '<span class="err">'. $errors['email']. '</span>';}
+					if(isset($_GET['msg']))
+					echo '<span class="err">'. $_GET['msg']. '</span>';
+					
 						$display = displayErrors($errors, 'email');
 						echo $display;
 
@@ -60,7 +62,9 @@
 			</div>
 			<div>
 				<?php
-					//if(isset($errors['password'])) {echo '<span class="err">'. $errors['password']. '</span>';}
+					if(isset($_GET['msg']))
+					echo '<span class="err">'. $_GET['msg']. '</span>';
+					
 					$display = displayErrors($errors, 'password');
 					echo $display;
 				?>
@@ -72,7 +76,7 @@
 		</form>
 
 		<h4 class="jumpto">Don't have an account? <a href="register.php">register</a></h4>
-
+		</div>
 <?php
 		include 'includes/footer.php';
 ?>
