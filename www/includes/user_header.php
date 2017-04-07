@@ -16,7 +16,7 @@
         <li class="top-nav-listItem Home"><a href="index.html">Home</a></li>
         <li class="top-nav-listItem catalogue"><a href="catalogue.html">Catalogue</a></li>
         <li class="top-nav-listItem login"><a href="login.html">Login</a></li>
-        <li class="top-nav-listItem register"><a href="registration.html">Register</a></li>
+        <li class="top-nav-listItem register"><a href="user_register.php">Register</a></li>
         <li class="top-nav-listItem cart">
           <div class="cart-item-indicator">
             <p>12</p>

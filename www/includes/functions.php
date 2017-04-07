@@ -372,4 +372,38 @@
 			return $result;
 		}
 
+		function doUserRegister($dbconn, $input) {
+
+			# hashing password
+			$hash = password_hash($input['password'], PASSWORD_BCRYPT);
+
+			# prepared statement
+			$stmt = $dbconn->prepare("INSERT INTO user(firstname, lastname, email, username, hash) VALUES(:fn, :ln, :e, :ur, :h)");			
+
+			#bind params
+			$data = [
+					':fn' => $input['firstname'],
+					':ln' => $input['lastname'],
+					':e' => $input['email'],
+					':ur' => $input['username'],
+					':h' => $hash
+					];
+
+			# execute prepared statement
+			$stmt->execute($data);
+
+				redirect("user_register.php?msg=You Have Been Successfully Registered");
+		}
+
+		function displayErrorsUser($dummy, $what) {
+					$result = "";
+						
+			if(isset($dummy[$what])) {
+				
+				$result = '<p class="form-error">'. $dummy[$what]. '</p>';
+
+			}
+					return $result; 
+		}
+
 ?>	
