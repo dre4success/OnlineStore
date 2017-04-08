@@ -445,7 +445,7 @@
 
 			$stmt->execute();
 
-			$row = stmt->fetch(PDO::FETCH_ASSOC);
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 			return $row;
 		}

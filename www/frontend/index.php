@@ -22,7 +22,10 @@
 	 <!-- main content starts here -->
   <div class="main">
     <div class="book-display">
-      <div class="display-book"></div>
+      <div class="display-book" style="background: url('../<?php echo $getit['file_path']; ?>');
+  										background-size: cover;
+  										background-position: center;
+  										background-repeat: no-repeat;"></div>
       <div class="info">
         <h2 class="book-title"><?php echo $getit['title']; ?></h2>
         <h3 class="book-author"><?php echo $getit['author']; ?></h3>
