@@ -91,7 +91,7 @@
         <?php $display =  displayErrorsUser($errors, 'pword'); echo $display; ?>
 
         <input type="submit" name="register" class="def-button" value="Register">
-        <p class="login-option">Have an account already? Login</p>
+        <p class="login-option"><a href="user_login.php">Have an account already? Login</a></p>
       </form>
     </div>
   </div>
