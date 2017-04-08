@@ -24,6 +24,7 @@
 			}
 			$cat = getCategoryByID($conn, $item['category_id']);
 
+
 				$errors = [];
 		if(array_key_exists('edit', $_POST)){
 
@@ -44,6 +45,10 @@
 				}
 				if(empty($_POST['bn'])) {
 					$errors = "Enter new ISBN";
+				}
+
+				if(empty($_POST['ty'])) {
+					$errors = "Select Type";
 				}
 
 				if(empty($errors)){
@@ -100,6 +105,7 @@
 				<label>ISBN</label>
 				<input type="text" name="bn" placeholder="ISBN" value="<?php echo $item['isbn']; ?>">
 				</div>
+
 
 				<input type="hidden" name="bk" value="<?php echo $item['book_id']; ?>">
 				<input type="submit" name="edit" value="edit">

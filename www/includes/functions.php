@@ -288,7 +288,7 @@
 
 	function editPro($dbconn, $edible){
 
-		$stmt = $dbconn->prepare("UPDATE books SET title=:ti, author=:au, category_id=:ci, price=:pr, year_of_publication=:yr, isbn=:is WHERE book_id=:b");
+		$stmt = $dbconn->prepare("UPDATE books SET title=:ti, author=:au, category_id=:ci, price=:pr, year_of_publication=:yr, isbn=:is, flag=:fl WHERE book_id=:b");
 
 		$data = [
 					':ti'=> $edible['til'],
@@ -297,7 +297,9 @@
 					':pr'=>	$edible['pri'],
 					':yr'=> $edible['yer'],
 					':is'=> $edible['bn'],
+					':fl'=> $edible['ty'],
 					':b'=> $edible['bk']
+
 				];
 
 		$stmt->execute($data);
@@ -315,7 +317,7 @@
 		
 			return $row;
 	}
-
+		
 	function doEditSelectCategory($dbconn,$catName){
 
 
@@ -434,4 +436,17 @@
 					
 				return $result;
 		}	
+
+		function topSelling($dbconn, $get) {
+
+			$stmt = $dbconn->prepare("SELECT * FROM books WHERE flag=:gt");
+
+			$stmt->bindParam(':gt', $get);
+
+			$stmt->execute();
+
+			$row = stmt->fetch(PDO::FETCH_ASSOC);
+
+			return $row;
+		}
 ?>	
