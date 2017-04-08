@@ -219,7 +219,7 @@
   margin: auto;
   text-align: center;
 }
-.main-book-list .book:first-of-type .book-cover {
+/*.main-book-list .book:first-of-type .book-cover {
   background: url('../img/1.jpg');
   background-size: cover;
   background-position: center;
@@ -314,7 +314,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
+} */
 .categories {
   color: #e8eaeb;
 }

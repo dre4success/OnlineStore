@@ -6,13 +6,13 @@
 		$body_id = "home";
 
 		# load db connection
-		include '../includes/db.php';
+		include 'includes/db.php';
 
 		# load function
-		include '../includes/functions.php';
+		include 'includes/functions.php';
 
 		# include header
-		include '../includes/user_header.php'; 
+		include 'includes/user_header.php'; 
 
 		
 
@@ -44,7 +44,7 @@
       <h3 class="header">Trending</h3>
       <ul class="book-list">
         <li class="book">
-          <a href="#"><div class="book-cover"></div></a>
+          <!--<a href="#"><div class="book-cover"></div></a>
           <div class="book-price"><p>$125</p></div>
         </li>
         <li class="book">
@@ -57,7 +57,13 @@
         </li>
         <li class="book">
           <a href="#"><div class="book-cover"></div></a>
-          <div class="book-price"><p>$50</p></div>
+          <div class="book-price"><p>$50</p></div> -->
+
+          	<?php
+          			$view = trending($conn);
+          			echo $view;
+
+          	?>
         </li>
       </ul>
     </div>
@@ -88,5 +94,5 @@
   </div>
 
    <?php
-  		include '../includes/front_footer.php';
+  		include 'includes/front_footer.php';
   ?>
