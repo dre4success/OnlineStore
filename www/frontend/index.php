@@ -14,24 +14,26 @@
 		# include header
 		include '../includes/user_header.php'; 
 
-		$top = "Top-Selling";
+		
 
-		$getit = topSelling($conn, $top);
+		$getit = topSelling($conn);
 ?>
 
 	 <!-- main content starts here -->
   <div class="main">
     <div class="book-display">
+
+    			
       <div class="display-book" style="background: url('../<?php echo $getit['file_path']; ?>');
   										background-size: cover;
   										background-position: center;
   										background-repeat: no-repeat;"></div>
-      <div class="info">
+     <div class="info">
         <h2 class="book-title"><?php echo $getit['title']; ?></h2>
         <h3 class="book-author"><?php echo $getit['author']; ?></h3>
         <h3 class="book-price"><?php echo $getit['price']; ?></h3>
-
-        <form>
+        			
+        	<form>
           <label for="book-amout">Amount</label>
           <input type="number" class="book-amount text-field">
           <input class="def-button add-to-cart" type="submit" name="" value="Add to cart">

@@ -437,16 +437,18 @@
 				return $result;
 		}	
 
-		function topSelling($dbconn, $get) {
+		function topSelling($dbconn) {
+
+			$tim = "Top-Selling";
 
 			$stmt = $dbconn->prepare("SELECT * FROM books WHERE flag=:gt");
 
-			$stmt->bindParam(':gt', $get);
+			$stmt->bindParam(':gt', $tim);
 
 			$stmt->execute();
 
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			return $row;
-		}
+		return $row;
+	}
 ?>	
