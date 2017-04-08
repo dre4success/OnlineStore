@@ -13,7 +13,7 @@
     <div class="top-nav">
       <a href="index.html"><h3 class="brand"><span>B</span>rain<span>F</span>ood</h3></a>
       <ul class="top-nav-list">
-        <li class="top-nav-listItem Home"><a href="index.html">Home</a></li>
+        <li class="top-nav-listItem Home"><a href="index.php">Home</a></li>
         <li class="top-nav-listItem catalogue"><a href="catalogue.html">Catalogue</a></li>
         <li class="top-nav-listItem login"><a href="user_login.php">Login</a></li>
         <li class="top-nav-listItem register"><a href="user_register.php">Register</a></li>

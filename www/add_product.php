@@ -13,7 +13,7 @@
 		# include header
 		include 'includes/view.php';
 
-		$flag = ['Trending', 'Top-Selling'];
+		$flag = ['Trending', 'Top-Selling', 'Recently-Viewed-Items'];
 
 		authenticate();
 
