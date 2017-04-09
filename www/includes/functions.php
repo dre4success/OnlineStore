@@ -467,5 +467,25 @@
 		} */
 
 
-		
+		function comment($dbconn, $bookid) {
+
+					$result = "";
+
+			$stmt = $dbconn->prepare("SELECT * FROM review WHERE book_id=:bk");
+
+			$stmt->bindParam(':bk', $bookid);
+
+			$stmt->execute();
+
+			while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+				$statement = $dbconn->prepare("SELECT firstname, lastname FROM user WHERE user_id=:di");
+					
+					$statement->bindParam(":di", $row['user_id']);
+					$statement->execute();
+					$row1 = $statement->fetch(PDO::FETCH_ASSOC);
+
+
+			}
+		}
 ?>
