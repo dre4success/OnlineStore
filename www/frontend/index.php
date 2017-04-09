@@ -1,5 +1,7 @@
 <?php
-		# title
+		
+    session_start();
+    # title
 		$page_title = "Home";
 
 		# body id for css
