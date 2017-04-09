@@ -52,7 +52,9 @@
 			}
 		}
 
+
 ?>
+	
 
  <!-- main content starts here -->
   <div class="main">
