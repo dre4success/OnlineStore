@@ -1,4 +1,5 @@
 <?php
+		session_start();
 		# title
 		$page_title = "Book Preview";
 
@@ -13,6 +14,13 @@
 
 		# include header
 		include '../includes/user_header.php';
+
+		$fname = $_SESSION['fname'];
+		$lname = $_SESSION['lname'];
+
+		$f = substr($fname, 0, 1);
+		$l = substr($lname, 0, 1);
+
 
 		if(isset($_GET['book_id'])){
 			$item = getBookByID($conn, $_GET['book_id']);
@@ -47,10 +55,10 @@
       <ul class="review-list">
         <li class="review">
           <div class="avatar-def user-image">
-            <h4 class="user-init">jm</h4>
+            <h4 class="user-init"><?php echo $f.$l; ?></h4>
           </div>
           <div class="info">
-            <h4 class="username">Jon Williams</h4>
+            <h4 class="username"><?php echo $fname." ".$lname; ?></h4>
             <p class="comment">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit,
               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
