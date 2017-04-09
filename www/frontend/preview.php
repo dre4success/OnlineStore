@@ -15,13 +15,8 @@
 		# include header
 		include '../includes/user_header.php';
 
-		$fname = $_SESSION['fname'];
-		$lname = $_SESSION['lname'];
+		
 		$id = $_SESSION['id'];
- 
-		$f = substr($fname, 0, 1);
-		$l = substr($lname, 0, 1);
-
 
 		if(isset($_GET['book_id'])){
 			$item = getBookByID($conn, $_GET['book_id']);
@@ -61,46 +56,12 @@
     <div class="book-reviews">
       <h3 class="header">Reviews</h3>
       <ul class="review-list">
-        <li class="review">
-          <div class="avatar-def user-image">
-            <h4 class="user-init"><?php echo $f.$l; ?></h4>
-          </div>
-          <div class="info">
-            <h4 class="username"><?php echo $fname." ".$lname; ?></h4>
-            <p class="comment">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-        </li>
-        <li class="review">
-          <div class="avatar-def user-image">
-            <h4 class="user-init">AE</h4>
-          </div>
-          <div class="info">
-            <h4 class="username">Abby Essien</h4>
-            <p class="comment">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-        </li>
-        <li class="review">
-          <div class="avatar-def user-image">
-            <h4 class="user-init">SB</h4>
-          </div>
-          <div class="info">
-            <h4 class="username">Sandra Bullock</h4>
-            <p class="comment">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-        </li>
+
+      		<?php
+      				$com = comment($conn, $item['book_id']);
+      				echo $com;
+      		 ?>
+       
       </ul>
       <div class="add-comment">
         <h3 class="header">Add your comment</h3>
