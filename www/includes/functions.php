@@ -453,7 +453,7 @@
 		return $row;
 	}
 
-		function trending($dbconn) {
+	/*	function trending($dbconn) {
 
 		
 
@@ -464,5 +464,8 @@
 			$stmt->bindParam(':tr', $trend);
 
 			$stmt->execute();
-		} 
+		} */
+
+
+		
 ?>
