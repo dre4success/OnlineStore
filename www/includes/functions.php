@@ -454,7 +454,7 @@
 
 		function trending($dbconn) {
 
-			$result = "";
+		
 
 			$trend = "Trending";
 
@@ -463,17 +463,5 @@
 			$stmt->bindParam(':tr', $trend);
 
 			$stmt->execute();
-
-			while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
-				
-          		$result .= '<a href="#"><div class="book-cover" style="background:url('$row['file_path']');
-  										background-size: cover;
-  										background-position: center;
-  										background-repeat: no-repeat;">''</div></a>';
-          		$result .= '<div class="book-price"><p>'.$row['price'].'</p></div>';
-        		
-			}
-			return $result;
-		}
+		} 
 ?>
