@@ -39,7 +39,7 @@
 						$_SESSION['id'] = $chk[1]['user_id'];
 						$_SESSION['email'] = $chk[1]['email'];
 						//print_r($_SESSION); exit();
-						redirect("home.php");
+						redirect("index.php");
 					} else
 					{
 						redirect("user_login.php?msg=invalid email or password");
