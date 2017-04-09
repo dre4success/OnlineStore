@@ -17,7 +17,8 @@
 
 		$fname = $_SESSION['fname'];
 		$lname = $_SESSION['lname'];
-
+		$id = $_SESSION['id'];
+ 
 		$f = substr($fname, 0, 1);
 		$l = substr($lname, 0, 1);
 
@@ -28,7 +29,14 @@
 
 		if(array_key_exists('submit', $_POST)) {
 			$clean = array_map('trim', $_POST);
-				editPro($conn, $clean);
+
+				$stmt = $conn->prepare("INSERT INTO review(user_id, book_id, review, date) VALUES(:us, :bk, :re, now())");
+
+				$data = [':us' => $id,
+						 ':bk' => $item['book_id'],
+						 're' => $clean['review'],
+						];
+				$stmt->execute($data);
 		}
 ?>
 
@@ -99,7 +107,9 @@
         <form class="comment" action="" method="POST">
           <textarea class="text-field" name="review" placeholder="write something"></textarea>
 
-          <button class="def-button post-comment" type="button" name="submit">Upload comment</button>
+         <!-- <button class="def-button post-comment" type="button" name="submit">Upload comment</button> -->
+
+         <input type="submit" class="def-button post-comment" name="submit" value="Upload comment">
         </form>
       </div>
     </div>
