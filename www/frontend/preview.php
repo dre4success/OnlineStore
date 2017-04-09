@@ -33,10 +33,19 @@
 						];
 				$stmt->execute($data);
 		}
+
+				$errors = [];
+		if(array_key_exists('enter', $_POST)) {
+			if(empty($_POST['quantity'])) {
+				$errors['quantity'] = "You have not chosen any amount!";
+			} else {
+				redirect("cart.php");
+			}
+		}
 ?>
 
  <div class="main">
-    <p class="global-error">You have not chosen any amount!</p>
+    <p class="global-error"> <?php if(isset($errors['quantity'])) { echo $errors['quantity']; } ?> </p>
     <div class="book-display">
       <div class="display-book" style="background: url('../<?php echo $item['file_path']; ?>');
   										background-size: cover;
@@ -46,10 +55,11 @@
         <h2 class="book-title"><?php echo $item['title']; ?></h2>
         <h3 class="book-author"><?php echo $item['author']; ?></h3>
         <h3 class="book-price"><?php echo $item['price']; ?></h3>
-        <form>
+        
+        <form action="" method="POST">
           <label for="book-amout">Amount</label>
-          <input type="number" class="book-amount text-field">
-          <input class="def-button add-to-cart" type="submit" name="" value="Add to cart">
+          <input type="number" class="book-amount text-field" name="quantity" >
+          <input class="def-button add-to-cart" type="submit" name="enter" value="Add to cart">
         </form>
       </div>
     </div>
