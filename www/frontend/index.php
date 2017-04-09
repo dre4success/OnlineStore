@@ -17,12 +17,8 @@
 		
 
 		$getit = topSelling($conn);
-
-    
-               // $view = trending($conn);
-              
-
-            
+  
+          
 ?>
 
 	 <!-- main content starts here -->
@@ -65,7 +61,7 @@
                       
               while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>  
               <li class="book">        
-          <a href="#"><div class="book-cover" style="background: url('../<?php echo $row['file_path']; ?>');
+          <a href="<?php echo "preview.php?book_id=".$row['book_id']?>"><div class="book-cover" style="background: url('../<?php echo $row['file_path']; ?>');
                       background-size: cover;
                       background-position: center;
                       background-repeat: no-repeat;"></div></a>
@@ -95,7 +91,7 @@
                       
               while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>  
               <li class="book">        
-          <a href="#"><div class="book-cover" style="background: url('../<?php echo $row['file_path']; ?>');
+          <a href="<?php echo "preview.php?book_id=".$row['book_id']?>"><div class="book-cover" style="background: url('../<?php echo $row['file_path']; ?>');
                       background-size: cover;
                       background-position: center;
                       background-repeat: no-repeat;"></div></a>
