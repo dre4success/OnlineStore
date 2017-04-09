@@ -339,10 +339,11 @@
 		}
 
 
-		return $result;
-							
+		return $result;					
 					
 	}
+
+		
 
 	function getCategoryByID($dbconn, $catid){
 

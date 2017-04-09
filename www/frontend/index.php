@@ -74,23 +74,7 @@
 
         </li>
           <?php } ?>
-       <!-- <li class="book">
-           <a href="#"><div class="book-cover" style="background: url('<?php //echo $view['file_path']; ?>');
-                      background-size: cover;
-                      background-position: center;
-                      background-repeat: no-repeat;"></div></a>
-          <div class="book-price"><p><?php //echo $view['price']; ?></p></div>
-        </li>
-        <li class="book">
-          <a href="#"><div class="book-cover"></div></a>
-          <div class="book-price"><p>$250</p></div>
-        </li>
-        <li class="book">
-          <a href="#"><div class="book-cover"></div></a>
-          <div class="book-price"><p>$50</p></div>
-
-          	
-        </li> -->
+      
       </ul>
     </div>
     <div class="recently-viewed-books horizontal-book-list">
@@ -98,22 +82,29 @@
       <ul class="book-list">
         <div class="scroll-back"></div>
         <div class="scroll-front"></div>
-        <li class="book">
-          <a href="#"><div class="book-cover"></div></a>
-          <div class="book-price"><p>$250</p></div>
+       <?php 
+
+      $recent = "Recently-Viewed-Items";
+
+      $stmt = $conn->prepare("SELECT * FROM books WHERE flag=:tr");
+
+      $stmt->bindParam(':tr', $recent);
+
+      $stmt->execute();  
+
+                      
+              while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>  
+              <li class="book">        
+          <a href="#"><div class="book-cover" style="background: url('../<?php echo $row['file_path']; ?>');
+                      background-size: cover;
+                      background-position: center;
+                      background-repeat: no-repeat;"></div></a>
+          <div class="book-price"><p><?php echo $row['price']; ?></p></div>
+              
+
         </li>
-        <li class="book">
-          <a href="#"><div class="book-cover"></div></a>
-          <div class="book-price"><p>$50</p></div>
-        </li>
-        <li class="book">
-          <a href="#"><div class="book-cover"></div></a>
-          <div class="book-price"><p>$125</p></div>
-        </li>
-        <li class="book">
-          <a href="#"><div class="book-cover"></div></a>
-          <div class="book-price"><p>$90</p></div>
-        </li>
+          <?php } ?>
+     
       </ul>
     </div>
     
