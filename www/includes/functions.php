@@ -453,19 +453,6 @@
 		return $row;
 	}
 
-	/*	function trending($dbconn) {
-
-		
-
-			$trend = "Trending";
-
-			$stmt = $dbconn->prepare("SELECT * FROM books WHERE flag=:tr");
-
-			$stmt->bindParam(':tr', $trend);
-
-			$stmt->execute();
-		} */
-
 
 		function comment($dbconn, $bookid) {
 
@@ -485,7 +472,22 @@
 					$statement->execute();
 					$row1 = $statement->fetch(PDO::FETCH_ASSOC);
 
+					$fname = $row1['firstname'];
+					$lname = $row1['lastname'];
 
+					$f = substr($fname, 0, 1);
+					$l = substr($lname, 0, 1);
+
+		 $result .= '<li class="review">
+         	 		<div class="avatar-def user-image">
+            		<h4 class="user-init">'.$f.$l.'</h4>
+         	 		</div>
+         	 		<div class="info">
+            		<h4 class="username">'.$fname." ".$lname.'</h4>
+            		<p class="comment">'.$row['review'].'</p>
+          			</div>
+        			</li>';
 			}
+			return $result;
 		}
 ?>
