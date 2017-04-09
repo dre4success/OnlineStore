@@ -14,6 +14,8 @@
 		# include header
 		include 'includes/view.php';
 
+		$flag = ['Trending', 'Top-Selling', 'Recently-Viewed-Items'];
+
 		authenticate();
 
 			
@@ -106,6 +108,15 @@
 				<input type="text" name="bn" placeholder="ISBN" value="<?php echo $item['isbn']; ?>">
 				</div>
 
+					<div>
+				<label>Types</label>
+							<select name="ty">
+									
+									<?php foreach ($flag as $fl) { ?>
+									<option value="<?php echo $fl; ?>"> <?php echo $fl; ?> </option>
+									<?php } ?>
+							</select>
+					</div>
 
 				<input type="hidden" name="bk" value="<?php echo $item['book_id']; ?>">
 				<input type="submit" name="edit" value="edit">
