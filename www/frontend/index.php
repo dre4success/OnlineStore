@@ -29,10 +29,10 @@
 
                     
     			
-      <div class="display-book" style="background: url('../<?php echo $getit['file_path']; ?>');
+      <a href="<?php echo "preview.php?book_id=".$getit['book_id']?>"><div class="display-book" style="background: url('../<?php echo $getit['file_path']; ?>');
   										background-size: cover;
   										background-position: center;
-  										background-repeat: no-repeat;"></div>
+  										background-repeat: no-repeat;"></div></a>
      <div class="info">
         <h2 class="book-title"><?php echo $getit['title']; ?></h2>
         <h3 class="book-author"><?php echo $getit['author']; ?></h3>
