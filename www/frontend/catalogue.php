@@ -56,11 +56,23 @@
   <div class="main">
     <div class="main-book-list horizontal-book-list">
       <ul class="book-list">
-        <li class="book">
-          <a href="#"><div class="book-cover"></div></a>
-          <div class="book-price"><p>$125</p></div>
+        
+
+        		<?php 
+        			$stmt = $conn->prepare("SELECT * FROM books WHERE category_id=:id");
+					$stmt->bindParam(':id', $_GET['cat_id']);
+
+					$stmt->execute();
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+				<li class="book">
+          <a href="<?php echo "catalogue.php?book_id=".$row['book_id'] ?>"><div class="book-cover"  style="background: url('../<?php echo $row['file_path']; ?>');
+                      background-size: cover;
+                      background-position: center;
+                      background-repeat: no-repeat;"></div></a>
+          <div class="book-price"><p><?php echo $row['price']; ?></p></div>
         </li>
-        <li class="book">
+        	<?php } ?>
+      <!--  <li class="book">
           <a href="#"><div class="book-cover"></div></a>
           <div class="book-price"><p>$90</p></div>
         </li>
@@ -87,7 +99,7 @@
         <li class="book">
           <a href="#"><div class="book-cover"></div></a>
           <div class="book-price"><p>$90</p></div>
-        </li>
+        </li> -->
       </ul>
       <div class="actions">
         <button class="def-button previous">Previous</button>
