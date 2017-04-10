@@ -64,12 +64,15 @@
 
 					$stmt->execute();
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+
 				<li class="book">
-          <a href="<?php echo "catalogue.php?book_id=".$row['book_id'] ?>"><div class="book-cover"  style="background: url('../<?php echo $row['file_path']; ?>');
+
+          <a href="<?php echo "preview.php?book_id=".$row['book_id'] ?>"><div class="book-cover"  style="background: url('../<?php echo $row['file_path']; ?>');
                       background-size: cover;
                       background-position: center;
                       background-repeat: no-repeat;"></div></a>
           <div class="book-price"><p><?php echo $row['price']; ?></p></div>
+
         </li>
         	<?php } ?>
       <!--  <li class="book">
