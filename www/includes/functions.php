@@ -490,4 +490,15 @@
 			}
 			return $result;
 		}
+
+		function insertIntoReview($dbconn, $userID, $bookid, $input){
+
+			$stmt = $dbconn->prepare("INSERT INTO review(user_id, book_id, review, date) VALUES(:us, :bk, :re, now())");
+
+				$data = [':us' => $userID,
+						 ':bk' => $bookid,
+						 're' => $input['review'],
+						];
+				$stmt->execute($data);
+		}
 ?>

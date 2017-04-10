@@ -25,13 +25,15 @@
 		if(array_key_exists('submit', $_POST)) {
 			$clean = array_map('trim', $_POST);
 
-				$stmt = $conn->prepare("INSERT INTO review(user_id, book_id, review, date) VALUES(:us, :bk, :re, now())");
+				/*$stmt = $conn->prepare("INSERT INTO review(user_id, book_id, review, date) VALUES(:us, :bk, :re, now())");
 
 				$data = [':us' => $id,
 						 ':bk' => $item['book_id'],
 						 're' => $clean['review'],
 						];
-				$stmt->execute($data);
+				$stmt->execute($data); */
+
+			insertIntoReview($conn, $id, $item['book_id'], $clean);
 		}
 
 				$errors = [];
