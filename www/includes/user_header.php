@@ -15,8 +15,23 @@
       <ul class="top-nav-list">
         <li class="top-nav-listItem Home"><a href="index.php">Home</a></li>
         <li class="top-nav-listItem catalogue"><a href="catalogue.php">Catalogue</a></li>
+
+<?php session_start();
+
+   if($_SESSION['logged'] == true && isset($_SESSION['logged'])){
+?>
+
+  <li class="top-nav-listItem login"><?php  echo "Welcome ". $_SESSION['username']?></li>
+        <li class="top-nav-listItem register"><a href="logout.php">Logout</a></li>
+
+        <?php }else { ?>
+
+
         <li class="top-nav-listItem login"><a href="user_login.php">Login</a></li>
         <li class="top-nav-listItem register"><a href="user_register.php">Register</a></li>
+
+        	<?php } ?>
+
         <li class="top-nav-listItem cart">
           <div class="cart-item-indicator">
             <p>12</p>
