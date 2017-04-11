@@ -18,7 +18,7 @@
 
 <?php session_start();
 
-   if($_SESSION['logged'] == true && isset($_SESSION['logged'])){
+   if(isset($_SESSION['logged']) == true && $_SESSION['logged']){
 ?>
 
   <li class="top-nav-listItem login"><?php  echo "Welcome ". $_SESSION['username']?></li>
