@@ -39,7 +39,7 @@
         <h3 class="book-price"><?php echo $getit['price']; ?></h3>
         			
         	<form>
-          <label for="book-amout">Amount</label>
+          <label for="book-amout">Quantity</label>
           <input type="number" class="book-amount text-field">
           <input class="def-button add-to-cart" type="submit" name="" value="Add to cart">
         </form>
