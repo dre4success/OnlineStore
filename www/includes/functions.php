@@ -157,7 +157,7 @@
 		$data = [];
 	$rnd = rand (0000000000,9999999999);
 
-	$strip_name = str_replace ("","",$_FILES['book']['name']);
+	$strip_name = str_replace ("","",$file[$name]['name']);
 
 	$filename = $rnd.$strip_name;
 	$destination = $uploadDir .$filename;
@@ -286,9 +286,10 @@
 		redirect("view_category.php");
 	}
 
-	function editPro($dbconn, $edible){
+	function editPro($dbconn, $edible, $dest){
 
-		$stmt = $dbconn->prepare("UPDATE books SET title=:ti, author=:au, category_id=:ci, price=:pr, year_of_publication=:yr, isbn=:is, flag=:fl WHERE book_id=:b");
+		$stmt = $dbconn->prepare("UPDATE books SET title=:ti, author=:au, category_id=:ci, price=:pr, year_of_publication=:yr, isbn=:is, file_path=:fp, 
+								flag=:fl WHERE book_id=:b");
 
 		$data = [
 					':ti'=> $edible['til'],
@@ -297,6 +298,7 @@
 					':pr'=>	$edible['pri'],
 					':yr'=> $edible['yer'],
 					':is'=> $edible['bn'],
+					':fp'=> $dest,
 					':fl'=> $edible['ty'],
 					':b'=> $edible['bk']
 

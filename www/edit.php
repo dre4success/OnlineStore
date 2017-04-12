@@ -28,7 +28,25 @@
 
 
 				$errors = [];
+
+				define("MAX_FILE_SIZE", "2097152");
+
+		$ext = ["image/jpg", "image/jpeg", "image/png"];
+
 		if(array_key_exists('edit', $_POST)){
+
+			if(empty($_FILES['book']['name'])) {
+			$errors[] = "please choose a file";
+			}
+
+	#  check file size..
+		if($_FILES['book']['size'] > MAX_FILE_SIZE) {
+		$errors[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
+		}
+
+		if(!in_array($_FILES['book']['type'], $ext)) {
+		$errors[] = "invalid file type";
+			}
 
 				if(empty($_POST['til'])) {
 					$errors = "Enter new title";
@@ -53,10 +71,18 @@
 					$errors = "Select Type";
 				}
 
+				$chk = UploadFile($_FILES, 'book', 'uploads/');
+
+ 			if($chk[0]) {
+ 				$destination = $chk[1];
+ 			} else{
+ 				$errors['book'] = "file uploaded failed";
+ 			}
+
 				if(empty($errors)){
 
 				$clean = array_map('trim', $_POST);
-				editPro($conn, $clean);
+				editPro($conn, $clean, $destination);
 
 			}
 		}
@@ -70,7 +96,14 @@
 
 			
 
-				<form id="register" action = "<?php echo "edit.php?book_id=".$_GET['book_id']; ?>" method ="POST">
+				<form id="register" action = "<?php echo "edit.php?book_id=".$_GET['book_id']; ?>" method ="POST" enctype="multipart/form-data">
+
+				<div>
+
+				<label>Choose book</label>
+					
+				<input type="file" name="book">
+					</div>
 
 				<div>
 				<label>Book Title</label>
