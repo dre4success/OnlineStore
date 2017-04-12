@@ -504,4 +504,15 @@
 				$stmt->execute($data);
 		}
 
+		function addToCart($dbconn, $userID, $bookID, $input) {
+
+			$stmt = $dbconn->prepare("INSERT INTO cart(quantity, user_id, book_id) VALUES(:qu, :ui, :bi)");
+
+			$data = [ ':qu'=> $input['quantity'],
+					  ':ui'=> $userID,
+					  ':bi'=> $bookID,
+					];
+			$stmt->execute($data);
+		}
+
 ?>

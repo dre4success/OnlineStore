@@ -40,10 +40,17 @@
 		if(array_key_exists('enter', $_POST)) {
 			if(empty($_POST['quantity'])) {
 				$errors['quantity'] = "You have not chosen any amount!";
-			} else {
-				redirect("cart.php");
 			}
+
+			if(empty($errors)){
+
+			$clean = array_map('trim', $_POST);
+
+			addToCart($conn, $id, $item['book_id'], $clean);
+
+			redirect("cart.php");
 		}
+	}
 ?>
 
  <div class="main">
@@ -59,7 +66,7 @@
         <h3 class="book-price"><?php echo $item['price']; ?></h3>
         
         <form action="" method="POST">
-          <label for="book-amout">Amount</label>
+          <label for="book-amout">Quantity</label>
           <input type="number" class="book-amount text-field" name="quantity" >
           <input class="def-button add-to-cart" type="submit" name="enter" value="Add to cart">
         </form>
