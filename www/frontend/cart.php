@@ -32,11 +32,28 @@
       </thead>
       <tbody>
         <tr>
-          <td><div class="book-cover"></div></td>
-          <td><p class="book-price">$200</p></td>
-          <td><p class="quantity">3</p></td>
-          <td><p class="total">$600</p></td>
-          <td>
+        		<?php 
+        			$stmt = $conn->prepare("SELECT * FROM cart");
+			$stmt->execute();
+
+			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+				
+				$statement = $conn->prepare("SELECT * FROM books WHERE book_id=:bi");
+				$statement->bindParam(':bi', $row['book_id']);
+				$statement->execute();
+
+				$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
+        		?>
+          <td><div class="book-cover" style="background: url('../<?php echo $rowBook['file_path'] ?>');
+  										background-size: cover;
+  										background-position: center;
+  										background-repeat: no-repeat;"></div></td>
+          <td><p class="book-price"><?php echo $rowBook['price'] ?></p></td>
+          <td><p class="quantity"><?php echo $row['quantity'] ?></p></td>
+          			<?php $sub = substr($rowBook['price'], 1) ?>
+          <td><p class="total"> <?php echo '$'.($sub * $row['quantity']) ?> </p></td>
+          <td> 
+          	
             <form class="update">
               <input type="number" class="text-field qty">
               <input type="submit" class="def-button change-qty" value="Change Qty">
@@ -46,7 +63,8 @@
             <a href class="def-button remove-item">Remove Item</a>
           </td>
         </tr>
-        <tr>
+        		<?php } ?>
+       <!-- <tr>
           <td><div class="book-cover"></div></td>
           <td><p class="book-price">$150</p></td>
           <td><p class="quantity">2</p></td>
@@ -90,7 +108,7 @@
           <td>
             <a href="#" class="def-button remove-item">Remove Item</a>
           </td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
     <div class="cart-table-actions">
