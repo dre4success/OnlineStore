@@ -515,4 +515,33 @@
 			$stmt->execute($data);
 		}
 
+		/*function viewCart($dbconn) {
+
+			$result = "";
+
+			$stmt = $dbconn->prepare("SELECT * FROM cart");
+			$stmt->execute();
+
+			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+				
+				$statement = $dbconn->prepare("SELECT * FROM books WHERE book_id=:bi");
+				$statement->bindParam(':bi', $row['book_id']);
+				$statement->execute();
+
+				$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
+
+				$location = '../';
+
+				$result .= '<td><div class="book-cover  style="background: url('.($location.$rowBook['file_path']).');
+  										background-size: cover;
+  										background-position: center;
+  										background-repeat: no-repeat;""></div></td>';
+
+  				$result .=	'<td><p class="book-price">'.$rowBook['price'].'</p></td>';
+         		$result .= '<td><p class="quantity">'.$row['quantity'].'</p></td>';
+         		$result .= '<td><p class="total">'.($rowBook['price'] * $row['quantity']).'</p></td>';
+
+			}
+			return $result;
+		} */
 ?>
