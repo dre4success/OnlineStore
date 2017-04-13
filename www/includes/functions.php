@@ -544,4 +544,28 @@
 			}
 			return $result;
 		} */
+
+	/*	function getCartByID($dbconn, $cartID) {
+			$stmt = $dbconn->prepare("SELECT * FROM cart WHERE cart_id=:id");
+			$stmt->bindParam(':id', $cartID);
+
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+			return $row;
+	} */
+
+	function editCart($dbconn, $cart){
+
+		$stmt = $dbconn->prepare("UPDATE cart SET quantity=:qy WHERE cart_id=:ci");
+
+		$data = [
+					':qy'=> $cart['qty'],
+					':ci'=> $cart['cartid']
+				];
+		$stmt->execute($data);
+
+		redirect("cart.php");
+	}
+
 ?>
