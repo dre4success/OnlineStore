@@ -62,10 +62,10 @@
               <input type="submit" class="def-button change-qty" value="Change Qty">
             </form> -->
 
-            <?php include 'update.php' ?>
+            <?php include 'update.php'; ?>
           </td>
           <td>
-            <a href class="def-button remove-item">Remove Item</a>
+            <a href="<?php echo "delete.php?cart_id=".$row['cart_id']; ?>" class="def-button remove-item">Remove Item</a>
           </td>
         </tr>
         		<?php } ?>
