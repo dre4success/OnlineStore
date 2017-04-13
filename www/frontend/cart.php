@@ -44,12 +44,15 @@
 
 				$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
         		?>
+        		
           <td><div class="book-cover" style="background: url('../<?php echo $rowBook['file_path'] ?>');
   										background-size: cover;
   										background-position: center;
   										background-repeat: no-repeat;"></div></td>
+
           <td><p class="book-price"><?php echo $rowBook['price'] ?></p></td>
           <td><p class="quantity"><?php echo $row['quantity'] ?></p></td>
+
           			<?php $sub = substr($rowBook['price'], 1) ?>
           <td><p class="total"> <?php echo '$'.($sub * $row['quantity']) ?> </p></td>
           <td> 

@@ -36,7 +36,7 @@
           <div class="cart-item-indicator">
             <p>12</p>
           </div>
-          <a href="cart.html">Cart</a>
+          <a href="cart.php">Cart</a>
         </li>
       </ul>
       <form class="search-brainfood">
