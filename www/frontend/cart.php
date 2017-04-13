@@ -44,7 +44,7 @@
 
 				$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
         		?>
-        		
+
           <td><div class="book-cover" style="background: url('../<?php echo $rowBook['file_path'] ?>');
   										background-size: cover;
   										background-position: center;
@@ -57,10 +57,12 @@
           <td><p class="total"> <?php echo '$'.($sub * $row['quantity']) ?> </p></td>
           <td> 
           	
-            <form class="update">
+           <!-- <form class="update">
               <input type="number" class="text-field qty">
               <input type="submit" class="def-button change-qty" value="Change Qty">
-            </form>
+            </form> -->
+
+            <?php include 'update.php' ?>
           </td>
           <td>
             <a href class="def-button remove-item">Remove Item</a>
@@ -126,3 +128,8 @@
     </div>
     
   </div>
+
+   <?php
+  		#footer
+  		include '../includes/front_footer.php';
+  ?>
