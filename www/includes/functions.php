@@ -568,4 +568,13 @@
 		redirect("cart.php");
 	}
 
+	function delCart($dbconn, $cart) {
+
+		$stmt = $dbconn->prepare("DELETE FROM cart WHERE cart_id=:c");
+									$stmt->bindParam(":c", $cart);
+									$stmt->execute();
+									
+				redirect("cart.php");
+	}
+
 ?>
