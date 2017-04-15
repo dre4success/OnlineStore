@@ -42,9 +42,9 @@
 				
 					$sub = substr($rowBook['price'], 1);
 					$to = $sub * $row['quantity'];
-				}
+				
         	?>
-          <h3>	<?php echo for($i = $to; $)  ?> Total Purchase</h3>
+          <h3>	<?php echo $to; ?> Total Purchase</h3>
         </div>
 
         <div class="cancel-icon close-form"></div>
