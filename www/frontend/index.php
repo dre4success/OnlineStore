@@ -19,15 +19,12 @@
 		
 
 		$getit = topSelling($conn);
-  
           
 ?>
 
 	 <!-- main content starts here -->
-  <div class="main">
-    <div class="book-display">
-
-                    
+  <div class="main">      
+    <div class="book-display">              
     			
       <a href="<?php echo "preview.php?book_id=".$getit['book_id']?>"><div class="display-book" style="background: url('../<?php echo $getit['file_path']; ?>');
   										background-size: cover;
