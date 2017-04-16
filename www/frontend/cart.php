@@ -16,7 +16,7 @@
 		# include header
 		include '../includes/user_header.php'; 
 
-		$id = $_SESSION['id']
+		$id = $_SESSION['id'];
 
 ?>
 
@@ -35,17 +35,8 @@
       <tbody>
         <tr>
         		<?php 
-        		/*	$stmt = $conn->prepare("SELECT * FROM cart WHERE user_id=:id");
-        			$stmt->bindParam(':id', $id);
-			$stmt->execute();
-
-			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-				
-				$statement = $conn->prepare("SELECT * FROM books WHERE book_id=:bi");
-				$statement->bindParam(':bi', $row['book_id']);
-				$statement->execute();
-
-				$rowBook = $statement->fetch(PDO::FETCH_ASSOC); */
+        		
+        		# if user is not logged in, to insert into temporary cart table
 
 				if(!isset($_SESSION['id'])) {
 					$stmt = $conn->prepare("SELECT * FROM temp_cart");
@@ -71,16 +62,51 @@
           			<?php $sub = substr($rowBook['price'], 1) ?>
           <td><p class="total"> <?php echo '$'.($sub * $row['quantity']) ?> </p></td>
           <td> 
-          	
-           <!-- <form class="update">
-              <input type="number" class="text-field qty">
-              <input type="submit" class="def-button change-qty" value="Change Qty">
-            </form> -->
+
+            <?php include 'updatefortempcart.php'; ?>
+          </td>
+          <td>
+            <a href="<?php echo "deletefortempcart.php?cart_id=".$row['tempCart_id']; ?>" class="def-button remove-item">Remove Item</a>
+          </td>
+        </tr>
+        		<?php } } ?>
+
+
+        		<?php
+
+        			# if user is logged in, to insert into cart table
+
+        			if(isset($_SESSION['id'])){
+
+        				$stmt = $conn->prepare("SELECT * FROM cart WHERE user_id=:id");
+        				$stmt->bindParam(':id', $id);
+						$stmt->execute();
+
+						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+				
+						$statement = $conn->prepare("SELECT * FROM books WHERE book_id=:bi");
+						$statement->bindParam(':bi', $row['book_id']);
+						$statement->execute();
+
+						$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
+        		?>
+
+        		 <td><div class="book-cover" style="background: url('../<?php echo $rowBook['file_path'] ?>');
+  										background-size: cover;
+  										background-position: center;
+  										background-repeat: no-repeat;"></div></td>
+
+          <td><p class="book-price"><?php echo $rowBook['price'] ?></p></td>
+          <td><p class="quantity"><?php echo $row['quantity'] ?></p></td>
+
+          			<?php $sub = substr($rowBook['price'], 1) ?>
+          <td><p class="total"> <?php echo '$'.($sub * $row['quantity']) ?> </p></td>
+          <td> 
 
             <?php include 'update.php'; ?>
           </td>
           <td>
-            <a href="<?php echo "delete.php?cart_id=".$row['tempCart_id']; ?>" class="def-button remove-item">Remove Item</a>
+            <a href="<?php echo "delete.php?cart_id=".$row['cart_id']; ?>" class="def-button remove-item">Remove Item</a>
           </td>
         </tr>
         		<?php } } ?>
