@@ -616,16 +616,17 @@
 	}	
 
 			# method to insert into checkout
-			public function insertIntoCheckout($dbconn, $userID, $input){
+			public function insertIntoCheckout($dbconn, $userID, $input, $tp){
 
-				$stmt = $dbconn->prepare("INSERT INTO checkout(phoneNumber, address, postCode, user_id) 
-														VALUES(:pn, :ad, :pc, :ui)");
+				$stmt = $dbconn->prepare("INSERT INTO checkout(phoneNumber, address, postCode, user_id, totalPurchase) 
+														VALUES(:pn, :ad, :pc, :ui, :tp)");
 
 				$data = [
 							':pn'=>$input['phoneNumber'],
 							':ad'=>$input['addy'],
 							':pc'=>$input['code'],
-							':ui'=>$userID
+							':ui'=>$userID,
+							':tp'=>$tp
 						];
 				$stmt->execute($data);
 

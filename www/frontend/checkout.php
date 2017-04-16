@@ -44,7 +44,7 @@
 
 				$clean = array_map('trim', $_POST);
 
-				$checkout->insertIntoCheckout($conn, $id, $clean);
+				$checkout->insertIntoCheckout($conn, $id, $clean, $totalPurchase);
 			}
 		}
 
