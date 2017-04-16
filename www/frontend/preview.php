@@ -40,6 +40,9 @@
 			if(!$_SESSION){
 
 			tempAddCart($conn, $item['book_id'], $clean);
+		} else {
+
+			addToCart($conn, $id, $item['book_id'], $clean);
 		}
 
 			redirect("preview.php?book_id=".$item['book_id']);
