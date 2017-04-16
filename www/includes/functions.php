@@ -622,7 +622,12 @@
 				$data = [
 							':pn'=>$input['phoneNumber'],
 							':ad'=>$input['addy'],
+							':pc'=>$input['code'],
+							':ui'=>$userID
 						];
+				$stmt->execute($data);
+
+				redirect("index.php?msge=Thank You very much for using our service, Your Goods Will be shipped to you within 2days");
 			}
 }
 
