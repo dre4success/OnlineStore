@@ -579,9 +579,31 @@
 		redirect("cart.php");
 	}
 
+	function editTempCart($dbconn, $cart){
+
+		$stmt = $dbconn->prepare("UPDATE temp_cart SET quantity=:qy WHERE tempCart_id=:ci");
+
+		$data = [
+					':qy'=> $cart['qty'],
+					':ci'=> $cart['cartid']
+				];
+		$stmt->execute($data);
+
+		redirect("cart.php");
+	}
+
 	function delCart($dbconn, $cart) {
 
 		$stmt = $dbconn->prepare("DELETE FROM cart WHERE cart_id=:c");
+									$stmt->bindParam(":c", $cart);
+									$stmt->execute();
+									
+				redirect("cart.php");
+	}
+
+	function delTempCart($dbconn, $cart) {
+
+		$stmt = $dbconn->prepare("DELETE FROM temp_cart WHERE tempCart_id=:c");
 									$stmt->bindParam(":c", $cart);
 									$stmt->execute();
 									
