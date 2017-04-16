@@ -579,16 +579,16 @@
 
 	class Checkout {
 
-		//private $quantity;
 		private $total;
 		private $totalPur;
-		private $dbconn;
-		private $userID;
+		//private $dbconn;
+		//private $userID;
 
+			# method to get total purchase
 			public function getTotal($dbconn, $userID){
 
-				$this->dbconn = $dbconn;
-				$this->userID = $userID;
+				//$this->dbconn = $dbconn;
+				//$this->userID = $userID;
 
 				$stmt = $dbconn->prepare("SELECT * FROM cart WHERE user_id=:id");
 				$stmt->bindParam(':id', $userID);
@@ -611,7 +611,19 @@
 				}
 
 			return $this->totalPur;
-	}
+	}	
+
+			# method to insert into checkout
+			public function insertIntoCheckout($dbconn, $userID, $input){
+
+				$stmt = $dbconn->prepare("INSERT INTO checkout(phoneNumber, address, postCode, user_id) 
+														VALUES(:pn, :ad, :pc, :ui)");
+
+				$data = [
+							':pn'=>$input['phoneNumber'],
+							':ad'=>$input['addy'],
+						];
+			}
 }
 
 ?>
