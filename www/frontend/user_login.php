@@ -7,7 +7,7 @@
 		$body_id = "login";
 
 		# load db connection
-		include '../includes/db.php';
+		include_once '../includes/db.php';
 
 		# load function
 		include '../includes/functions.php';
