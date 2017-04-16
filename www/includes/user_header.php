@@ -9,7 +9,7 @@
   <!-- DO NOT TAMPER WITH CLASS NAMES! -->
 
   <!-- top bar starts here -->
-  <div class="top-bar">
+  <div class="top-bar"> 
 
     <div class="top-nav">
       <a href="index.html"><h3 class="brand"><span>B</span>rain<span>F</span>ood</h3></a>
@@ -35,7 +35,33 @@
 
         <li class="top-nav-listItem cart">
           <div class="cart-item-indicator">
-            <p>12</p>
+
+          <?php
+
+            include_once '../includes/db.php';
+
+        # load function
+          include_once '../includes/functions.php';
+
+          
+          
+          if(isset($_SESSION['id'])) {
+
+          $quantity = new Checkout();
+
+            $quan = $quantity->quantity($conn, $_SESSION['id']);
+
+          ?>
+
+            <p><?php echo $quan; ?></p>
+            <?php } elseif(!isset($_SESSION['id'])) {
+
+               $quantity = new Checkout();
+            $quant = $quantity->quantitynotID($conn);
+
+            ?>
+              <p><?php echo $quant; ?></p>
+              <?php }?>
           </div>
           <a href="cart.php">Cart</a>
         </li>

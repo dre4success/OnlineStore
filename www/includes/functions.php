@@ -581,6 +581,8 @@
 
 		private $total;
 		private $totalPur;
+		private $quantity;
+		private $tq;
 		//private $dbconn;
 		//private $userID;
 
@@ -629,6 +631,39 @@
 
 				redirect("index.php?msge=Thank You very much for using our service, Your Goods Will be shipped to you within 2days");
 			}
+
+			public function quantity($dbconn, $userID){
+
+				$stmt = $dbconn->prepare("SELECT quantity FROM cart WHERE user_id=:id");
+				$stmt->bindParam(':id', $userID);
+
+				$stmt->execute();
+
+				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+						
+						$this->quantity = $row['quantity'];
+
+						$this->tq += $this->quantity;
+				}
+					return $this->tq;
+			}
+
+			public function quantitynotID($dbconn){
+
+				$stmt = $dbconn->prepare("SELECT quantity FROM cart WHERE !user_id");
+				//$stmt->bindParam(':id', $userID);
+
+				$stmt->execute();
+
+				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+						
+						$this->quantity = $row['quantity'];
+
+						$this->tq += $this->quantity;
+				}
+					return $this->tq;
+			}
+
 }
 
 ?>
