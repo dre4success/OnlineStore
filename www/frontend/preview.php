@@ -25,14 +25,6 @@
 		if(array_key_exists('submit', $_POST)) {
 			$clean = array_map('trim', $_POST);
 
-				/*$stmt = $conn->prepare("INSERT INTO review(user_id, book_id, review, date) VALUES(:us, :bk, :re, now())");
-
-				$data = [':us' => $id,
-						 ':bk' => $item['book_id'],
-						 're' => $clean['review'],
-						];
-				$stmt->execute($data); */
-
 			insertIntoReview($conn, $id, $item['book_id'], $clean);
 		}
 
@@ -48,7 +40,7 @@
 
 			addToCart($conn, $id, $item['book_id'], $clean);
 
-			redirect("cart.php");
+			redirect("preview.php?book_id=".$item['book_id']);
 		}
 	}
 ?>
@@ -65,7 +57,7 @@
         <h3 class="book-author"><?php echo $item['author']; ?></h3>
         <h3 class="book-price"><?php echo $item['price']; ?></h3>
         
-        <form action="" method="POST">
+        <form action="<?php echo "preview.php?book_id=".$item['book_id']; ?>" method="POST">
           <label for="book-amout">Quantity</label>
           <input type="number" class="book-amount text-field" name="quantity" >
           <input class="def-button add-to-cart" type="submit" name="enter" value="Add to cart">
@@ -84,7 +76,7 @@
       </ul>
       <div class="add-comment">
         <h3 class="header">Add your comment</h3>
-        <form class="comment" action="" method="POST">
+        <form class="comment" action="<?php echo "preview.php?book_id=".$item['book_id']; ?>" method="POST">
           <textarea class="text-field" name="review" placeholder="write something"></textarea>
 
          <!-- <button class="def-button post-comment" type="button" name="submit">Upload comment</button> -->
