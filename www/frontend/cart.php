@@ -16,6 +16,8 @@
 		# include header
 		include '../includes/user_header.php'; 
 
+		$id = $_SESSION['id']
+
 ?>
 
  <div class="main">
@@ -33,7 +35,8 @@
       <tbody>
         <tr>
         		<?php 
-        			$stmt = $conn->prepare("SELECT * FROM cart");
+        			$stmt = $conn->prepare("SELECT * FROM cart WHERE user_id=:id");
+        			$stmt->bindParam(':id', $id);
 			$stmt->execute();
 
 			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
