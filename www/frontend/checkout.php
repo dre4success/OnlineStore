@@ -19,6 +19,10 @@
 		# user ID
 		$id = $_SESSION['id'];
 
+		# instantiating new Object Checkout;
+		$checkout = new Checkout();
+
+
 		# populating errors array
 		$errors = [];
 
@@ -36,7 +40,9 @@
 
 			if(empty($errors)) {
 
-				$clean = array_map('trip', $_POST);
+				$clean = array_map('trim', $_POST);
+
+				$checkout->insertIntoCheckout($conn, $id, $clean);
 			}
 		}
 
@@ -48,11 +54,6 @@
       <form class="def-modal-form" action="checkout.php" method="POST">
         <div class="total-cost">
         	
-        	<?php 
-
-					$checkout = new Checkout();
-				
-        	?>
           <h3>	<?php echo '$'.$checkout->getTotal($conn, $id); ?> Total Purchase</h3>
 
         </div>
@@ -60,10 +61,13 @@
         <div class="cancel-icon close-form"></div>
         <label for="login-form" class="header"><h3>Checkout</h3></label>
         <input type="number" maxlength="11" name="phoneNumber" class="text-field phone" placeholder="Phone Number">
+        <?php $display =  displayErrorsUser($errors, 'phoneNumber'); echo $display; ?>
 
         <input type="text" name="addy" class="text-field address" placeholder="Address">
+        <?php $display =  displayErrorsUser($errors, 'addy'); echo $display; ?>
 
         <input type="text" name="code" class="text-field post-code" placeholder="Post Code">
+        <?php $display =  displayErrorsUser($errors, 'code'); echo $display; ?>
 
         <input type="submit" name="chkt" class="def-button checkout" value="Checkout">
       </form>
