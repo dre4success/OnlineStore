@@ -37,8 +37,10 @@
 			if(empty($errors)){
 
 			$clean = array_map('trim', $_POST);
+			if(!$_SESSION){
 
-			addToCart($conn, $id, $item['book_id'], $clean);
+			tempAddCart($conn, $item['book_id'], $clean);
+		}
 
 			redirect("preview.php?book_id=".$item['book_id']);
 		}
