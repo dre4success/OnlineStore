@@ -566,6 +566,7 @@
 			return $row;
 	} */
 
+	# function for editing items in cart
 	function editCart($dbconn, $cart){
 
 		$stmt = $dbconn->prepare("UPDATE cart SET quantity=:qy WHERE cart_id=:ci");
@@ -579,6 +580,7 @@
 		redirect("cart.php");
 	}
 
+	# function for editing items in temporary cart
 	function editTempCart($dbconn, $cart){
 
 		$stmt = $dbconn->prepare("UPDATE temp_cart SET quantity=:qy WHERE tempCart_id=:ci");
@@ -592,6 +594,7 @@
 		redirect("cart.php");
 	}
 
+	# function for deleting item in cart
 	function delCart($dbconn, $cart) {
 
 		$stmt = $dbconn->prepare("DELETE FROM cart WHERE cart_id=:c");
@@ -601,6 +604,7 @@
 				redirect("cart.php");
 	}
 
+	# function for deleting item in temporary cart
 	function delTempCart($dbconn, $cart) {
 
 		$stmt = $dbconn->prepare("DELETE FROM temp_cart WHERE tempCart_id=:c");
@@ -609,6 +613,8 @@
 									
 				redirect("cart.php");
 	}
+
+
 
 	class Checkout {
 
@@ -647,6 +653,30 @@
 
 			return $this->totalPur;
 	}	
+		# get total if user is not logged in
+		function getTotalTempCart($dbconn) {
+
+			$stmt = $dbconn->prepare("SELECT * FROM temp_cart");
+			
+				$stmt->execute();
+
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
+
+				$statement = $dbconn->prepare("SELECT * FROM books WHERE book_id=:bi");
+				$statement->bindParam(':bi', $row['book_id']);
+				$statement->execute();
+
+				$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
+				$sub = substr($rowBook['price'], 1);
+
+				$this->total = $sub * $row['quantity'];
+
+				$this->totalPur += $this->total; 
+		
+				}
+
+			return $this->totalPur;
+		}
 
 			# method to insert into checkout
 			public function insertIntoCheckout($dbconn, $userID, $input, $tp){
@@ -666,7 +696,7 @@
 				redirect("index.php?msge=Thank You very much for using our service, Your Goods Will be shipped to you within 2days");
 			}
 
-			# function for counting quantity in cart
+			# method for counting quantity in cart
 			public function quantity($dbconn, $userID){
 
 				$stmt = $dbconn->prepare("SELECT quantity FROM cart WHERE user_id=:id");
@@ -683,7 +713,7 @@
 					return $this->tq;
 			}
 
-			# function for counting quantity when no user is logged in
+			# method for counting quantity when no user is logged in
 			public function quantitynotID($dbconn){
 
 				$stmt = $dbconn->prepare("SELECT quantity FROM temp_cart");
