@@ -504,7 +504,18 @@
 				$stmt->execute($data);
 		}
 
+		function tempAddCart($dbconn, $bookID, $input){
+
+			$stmt = $dbconn->prepare("INSERT INTO temp_cart(quantity, book_id) VALUES(:qu,:bi)");
+
+			$data = [ ':qu'=> $input['quantity'],
+					  ':bi'=> $bookID,
+					];
+			$stmt->execute($data);
+		}
+
 		function addToCart($dbconn, $userID, $bookID, $input) {
+
 
 			$stmt = $dbconn->prepare("INSERT INTO cart(quantity, user_id, book_id) VALUES(:qu, :ui, :bi)");
 
@@ -653,7 +664,7 @@
 			# function for counting quantity when no user is logged in
 			public function quantitynotID($dbconn){
 
-				$stmt = $dbconn->prepare("SELECT quantity FROM cart WHERE !user_id");
+				$stmt = $dbconn->prepare("SELECT quantity FROM temp_cart");
 				//$stmt->bindParam(':id', $userID);
 
 				$stmt->execute();

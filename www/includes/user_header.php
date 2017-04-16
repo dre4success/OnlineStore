@@ -22,7 +22,7 @@
    if(isset($_SESSION['logged']) == true && $_SESSION['logged']){
 ?>
 
-  <li class="top-nav-listItem login"><?php  echo "Welcome ". $_SESSION['username']?></li>
+  <li class="top-nav-listItem login"><?php  echo $_SESSION['username']?></li>
         <li class="top-nav-listItem register"><a href="logout.php">Logout</a></li>
 
         <?php }else { ?>
