@@ -27,7 +27,7 @@
         <div class="total-cost">
         	<?php 
 
-        		$stmt = $conn->prepare("SELECT * FROM cart WHERE user_id=:id");
+        		/*$stmt = $conn->prepare("SELECT * FROM cart WHERE user_id=:id");
 				$stmt->bindParam(':id', $id);
 
 				$stmt->execute();
@@ -41,10 +41,12 @@
 				$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
 				
 					$sub = substr($rowBook['price'], 1);
-					$to = $sub * $row['quantity'];
+					$to = $sub * $row['quantity']; */
+
+					$checkout = new Checkout();
 				
         	?>
-          <h3>	<?php echo $to; ?> Total Purchase</h3>
+          <h3>	<?php echo $checkout->getTotal; ?> Total Purchase</h3>
         </div>
 
         <div class="cancel-icon close-form"></div>
