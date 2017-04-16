@@ -581,17 +581,18 @@
 
 		//private $quantity;
 		private $total;
+		private $totalPur;
 
-			public function $getTotal(){
+			public function getTotal($dbconn, $userID){
 
-				$stmt = $conn->prepare("SELECT * FROM cart WHERE user_id=:id");
-				$stmt->bindParam(':id', $id);
+				$stmt = $dbconn->prepare("SELECT * FROM cart WHERE user_id=:id");
+				$stmt->bindParam(':id', $userID);
 
 				$stmt->execute();
 
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
 
-				$statement = $conn->prepare("SELECT * FROM books WHERE book_id=:bi");
+				$statement = $dbconn->prepare("SELECT * FROM books WHERE book_id=:bi");
 				$statement->bindParam(':bi', $row['book_id']);
 				$statement->execute();
 
@@ -600,8 +601,12 @@
 
 				$this->total = $sub * $row['quantity'];
 
-				return $this->total;
-		}
+				//$this->totalPur += $this->total; 
+		
+				}
+
+			return $this->total;
 	}
+}
 
 ?>

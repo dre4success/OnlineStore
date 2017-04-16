@@ -46,7 +46,7 @@
 					$checkout = new Checkout();
 				
         	?>
-          <h3>	<?php echo $checkout->getTotal; ?> Total Purchase</h3>
+          <h3>	<?php echo $checkout->getTotal($conn, $id) ?> Total Purchase</h3>
         </div>
 
         <div class="cancel-icon close-form"></div>
