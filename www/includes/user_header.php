@@ -10,6 +10,7 @@
 
   <!-- top bar starts here -->
   <div class="top-bar">
+
     <div class="top-nav">
       <a href="index.html"><h3 class="brand"><span>B</span>rain<span>F</span>ood</h3></a>
       <ul class="top-nav-list">
@@ -39,8 +40,16 @@
           <a href="cart.php">Cart</a>
         </li>
       </ul>
+
       <form class="search-brainfood">
         <input type="text" class="text-field" placeholder="Search all books">
       </form>
+
+
     </div>
+     <?php
+       if(isset($_GET['msge'])){
+        echo '<p>'.$_GET['msge'].'</p>';
+      }
+      ?>
   </div>
