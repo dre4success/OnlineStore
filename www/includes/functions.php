@@ -582,8 +582,13 @@
 		//private $quantity;
 		private $total;
 		private $totalPur;
+		private $dbconn;
+		private $userID;
 
 			public function getTotal($dbconn, $userID){
+
+				$this->dbconn = $dbconn;
+				$this->userID = $userID;
 
 				$stmt = $dbconn->prepare("SELECT * FROM cart WHERE user_id=:id");
 				$stmt->bindParam(':id', $userID);
@@ -601,11 +606,11 @@
 
 				$this->total = $sub * $row['quantity'];
 
-				//$this->totalPur += $this->total; 
+				$this->totalPur += $this->total; 
 		
 				}
 
-			return $this->total;
+			return $this->totalPur;
 	}
 }
 
