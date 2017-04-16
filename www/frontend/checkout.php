@@ -19,10 +19,19 @@
 		# user ID
 		$id = $_SESSION['id'];
 
-		# instantiating new Object Checkout;
+		# instantiating new Object Checkout if user is logged in
+		if(isset($_SESSION['id'])) {
 		$checkout = new Checkout();
 
 		$totalPurchase = '$'.$checkout->getTotal($conn, $id);
+
+		} else # if user is not logged in, instantiating object to get total
+
+			{
+				$checkout = new Checkout();
+
+				$totalPurchase = '$'.$checkout->getTotalTempCart($conn);
+			}
 
 
 		# populating errors array
