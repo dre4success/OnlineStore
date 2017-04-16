@@ -47,13 +47,17 @@
           
           if(isset($_SESSION['id'])) {
 
+            # instantiating object for counting quantity in cart 
           $quantity = new Checkout();
-
+            
+            # assigning obeject->method to variable
             $quan = $quantity->quantity($conn, $_SESSION['id']);
 
           ?>
-
+              <!-- echoing quantity count for cart in header -->
             <p><?php echo $quan; ?></p>
+
+              <!-- here, if no user is logged in -->
             <?php } elseif(!isset($_SESSION['id'])) {
 
                $quantity = new Checkout();

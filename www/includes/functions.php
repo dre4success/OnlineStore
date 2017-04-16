@@ -633,6 +633,7 @@
 				redirect("index.php?msge=Thank You very much for using our service, Your Goods Will be shipped to you within 2days");
 			}
 
+			# function for counting quantity in cart
 			public function quantity($dbconn, $userID){
 
 				$stmt = $dbconn->prepare("SELECT quantity FROM cart WHERE user_id=:id");
@@ -649,6 +650,7 @@
 					return $this->tq;
 			}
 
+			# function for counting quantity when no user is logged in
 			public function quantitynotID($dbconn){
 
 				$stmt = $dbconn->prepare("SELECT quantity FROM cart WHERE !user_id");
