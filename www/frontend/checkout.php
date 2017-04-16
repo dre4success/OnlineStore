@@ -22,6 +22,8 @@
 		# instantiating new Object Checkout;
 		$checkout = new Checkout();
 
+		$totalPurchase = '$'.$checkout->getTotal($conn, $id);
+
 
 		# populating errors array
 		$errors = [];
@@ -54,7 +56,7 @@
       <form class="def-modal-form" action="checkout.php" method="POST">
         <div class="total-cost">
         	
-          <h3>	<?php echo '$'.$checkout->getTotal($conn, $id); ?> Total Purchase</h3>
+          <h3>	<?php echo $totalPurchase; ?> Total Purchase</h3>
 
         </div>
 
