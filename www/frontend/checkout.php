@@ -31,6 +31,8 @@
 				$checkout = new Checkout();
 
 				$totalPurchase = '$'.$checkout->getTotalTempCart($conn);
+
+				$Tologin = "Please Login To Checkout";
 			}
 
 
@@ -64,8 +66,8 @@
     <div class="checkout-form">
       <form class="def-modal-form" action="checkout.php" method="POST">
         <div class="total-cost">
-        	
-          <h3>	<?php echo $totalPurchase; ?> Total Purchase</h3>
+        														<!-- if user is not logged in, tell user to login before checkout -->
+          <h3>	<?php echo $totalPurchase; ?> Total Purchase <?php if(!isset($_SESSION['id'])) echo '<hr>'.$Tologin ?></h3>
 
         </div>
 
