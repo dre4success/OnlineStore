@@ -45,7 +45,7 @@
 				$errors['phoneNumber'] = "Please Enter Your Phone Number";
 			}
 			if(empty($_POST['addy'])) {
-				$errors['addy'] = "Please Enter the address want it to be shipped to";
+				$errors['addy'] = "Please Enter the address to be shipped to";
 			}
 			if(empty($_POST['code'])) {
 				$errors['code'] = "Please Enter Post Code";
