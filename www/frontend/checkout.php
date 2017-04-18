@@ -62,7 +62,9 @@
 			}
 		}
 
-		if(isset($Tologin)) {
+		 
+
+          				if(isset($Tologin)) {
 
 					$stmt = $conn->prepare("SELECT * FROM temp_cart");
 					$stmt->execute();
@@ -77,6 +79,9 @@
 					$statement->execute($data);
 
 				}
+          		
+
+		
 
 ?>
 
@@ -87,6 +92,7 @@
         <div class="total-cost">
         														<!-- if user is not logged in, tell user to login before checkout -->
           <h3>	<?php echo $totalPurchase; ?> Total Purchase <?php if(!isset($_SESSION['id'])) echo '<hr>'.$Tologin ?></h3>
+
 
         </div>
 
