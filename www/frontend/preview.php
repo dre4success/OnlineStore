@@ -30,20 +30,29 @@
 
 				$errors = [];
 		if(array_key_exists('enter', $_POST)) {
+
 			if(empty($_POST['quantity'])) {
+
 				$errors['quantity'] = "You have not chosen any amount!";
-			}
+				}
 
 			if(empty($errors)){
 
 			$clean = array_map('trim', $_POST);
-			if(!$_SESSION){
 
-			tempAddCart($conn, $item['book_id'], $clean);
-		} else {
+				if(!$_SESSION){
 
-			addToCart($conn, $id, $item['book_id'], $clean);
-		}
+				# add to temporary cart if user is not logged in	
+				tempAddCart($conn, $item['book_id'], $clean);
+
+					} 
+
+				else {
+
+				# add to cart if user is logged in
+				addToCart($conn, $id, $item['book_id'], $clean);
+				
+					}
 
 			redirect("preview.php?book_id=".$item['book_id']);
 		}
@@ -74,6 +83,8 @@
       <ul class="review-list">
 
       		<?php
+      				# assigning function to view review to variable com
+
       				$com = comment($conn, $item['book_id']);
       				echo $com;
       		 ?>
