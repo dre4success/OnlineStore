@@ -32,7 +32,15 @@
 
 				$totalPurchase = '$'.$checkout->getTotalTempCart($conn);
 
-				$Tologin = "Please Login To Checkout";
+				$Tologin = '<a href="user_login.php">'."<em>Please Login To Checkout</em>".'</a>';
+
+				if(isset($Tologin)) {
+
+					$stmt = $conn->prepare("SELECT * FROM temp_cart");
+					$stmt->execute;
+					$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+				}
 			}
 
 
