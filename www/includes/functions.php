@@ -616,7 +616,7 @@
 
 
 
-	class Checkout {
+	/*class Checkout {
 
 		private $total;
 		private $totalPur;
@@ -730,6 +730,6 @@
 					return $this->tq;
 			}
 
-}
+} */
 
 ?>
