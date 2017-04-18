@@ -455,7 +455,7 @@
 		return $row;
 	}
 
-
+		# function to view comment or review by a user
 		function comment($dbconn, $bookid) {
 
 					$result = "";
