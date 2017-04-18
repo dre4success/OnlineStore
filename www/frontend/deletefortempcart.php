@@ -6,6 +6,8 @@
 		# load function
 		include '../includes/functions.php';
 
+		//include_once '../includes/class.Checkout.php';
+
 			
 			
 

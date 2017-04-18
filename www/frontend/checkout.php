@@ -16,7 +16,7 @@
 		# include header
 		include '../includes/user_header.php'; 
 
-		//include_once 'user_login.php';
+		include_once '../includes/class.Checkout.php';
 
 		# user ID
 		$id = $_SESSION['id'];
