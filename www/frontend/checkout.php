@@ -36,6 +36,22 @@
 
 				$Tologin = '<a href="user_login.php">'."<em>Please Login To Checkout</em>".'</a>';
 
+				if(isset($Tologin)) {
+
+					$stmt = $conn->prepare("SELECT * FROM temp_cart");
+					$stmt->execute();
+					$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+					$statement = $conn->prepare("INSERT INTO cart(quantity, user_id, book_id) VALUES(:q, :u, :b)");
+					$data = [
+								':q'=>$row['quantity'],
+								':u'=>$id,
+								':b'=>$row['book_id']
+							];
+					$statement->execute($data);
+
+				}
+
 			}
 
 
@@ -64,22 +80,7 @@
 
 		 
 
-          				if(isset($Tologin)) {
-
-					$stmt = $conn->prepare("SELECT * FROM temp_cart");
-					$stmt->execute();
-					$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-					$statement = $conn->prepare("INSERT INTO cart(quantity, user_id, book_id) VALUES(:q, :u, :b)");
-					$data = [
-								':q'=>$row['quantity'],
-								':u'=>$id,
-								':b'=>$row['book_id']
-							];
-					$statement->execute($data);
-
-				}
-          		
+          			
 
 		
 
