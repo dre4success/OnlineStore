@@ -5,7 +5,7 @@
 		private $total;
 		private $totalPur;
 		private $quantity;
-		private $tq;
+		private $tq = 0;
 		
 
 			//public function selectFromCart()
