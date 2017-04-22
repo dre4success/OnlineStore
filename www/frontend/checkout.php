@@ -25,9 +25,10 @@
 
 		# instantiating new Object Checkout if user is logged in
 		if(isset($_SESSION['id'])) {
-		$checkout = new Checkout();
+			
+			$checkout = new Checkout();
 
-		$totalPurchase = '$'.$checkout->getTotal($conn, $id);
+			$totalPurchase = '$'.$checkout->getTotal($conn, $id);
 
 		} else # if user is not logged in, instantiating object to get total
 
@@ -64,11 +65,6 @@
 				$checkout->insertIntoCheckout($conn, $id, $clean, $totalPurchase);
 			}
 		}
-
-		 
-
-          			
-
 		
 
 ?>
@@ -77,7 +73,7 @@
   <div class="main">
     <div class="checkout-form">
 
-    	<-- Form For Checkout -->
+    	<!S-- Form For Checkout -->
       <form class="def-modal-form" action="checkout.php" method="POST">
         <div class="total-cost">
         														<!-- if user is not logged in, tell user to login before checkout -->
