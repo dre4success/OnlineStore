@@ -504,6 +504,7 @@
 				$stmt->execute($data);
 		}
 
+
 		function tempAddCart($dbconn, $bookID, $input){
 
 			$stmt = $dbconn->prepare("INSERT INTO temp_cart(quantity, book_id) VALUES(:qu,:bi)");
@@ -513,6 +514,7 @@
 					];
 			$stmt->execute($data);
 		}
+
 
 		function addToCart($dbconn, $userID, $bookID, $input) {
 
@@ -526,45 +528,7 @@
 			$stmt->execute($data);
 		}
 
-		/*function viewCart($dbconn) {
-
-			$result = "";
-
-			$stmt = $dbconn->prepare("SELECT * FROM cart");
-			$stmt->execute();
-
-			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-				
-				$statement = $dbconn->prepare("SELECT * FROM books WHERE book_id=:bi");
-				$statement->bindParam(':bi', $row['book_id']);
-				$statement->execute();
-
-				$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
-
-				$location = '../';
-
-				$result .= '<td><div class="book-cover  style="background: url('.($location.$rowBook['file_path']).');
-  										background-size: cover;
-  										background-position: center;
-  										background-repeat: no-repeat;""></div></td>';
-
-  				$result .=	'<td><p class="book-price">'.$rowBook['price'].'</p></td>';
-         		$result .= '<td><p class="quantity">'.$row['quantity'].'</p></td>';
-         		$result .= '<td><p class="total">'.($rowBook['price'] * $row['quantity']).'</p></td>';
-
-			}
-			return $result;
-		} */
-
-	/*	function getCartByID($dbconn, $cartID) {
-			$stmt = $dbconn->prepare("SELECT * FROM cart WHERE cart_id=:id");
-			$stmt->bindParam(':id', $cartID);
-
-			$stmt->execute();
-			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		
-			return $row;
-	} */
 
 	# function for editing items in cart
 	function editCart($dbconn, $cart){
@@ -580,6 +544,7 @@
 		redirect("cart.php");
 	}
 
+
 	# function for editing items in temporary cart
 	function editTempCart($dbconn, $cart){
 
@@ -594,6 +559,7 @@
 		redirect("cart.php");
 	}
 
+
 	# function for deleting item in cart
 	function delCart($dbconn, $cart) {
 
@@ -603,6 +569,7 @@
 									
 				redirect("cart.php");
 	}
+
 
 	# function for deleting item in temporary cart
 	function delTempCart($dbconn, $cart) {
@@ -614,122 +581,5 @@
 				redirect("cart.php");
 	}
 
-
-
-	/*class Checkout {
-
-		private $total;
-		private $totalPur;
-		private $quantity;
-		private $tq;
-		//private $dbconn;
-		//private $userID;
-
-			# method to get total purchase
-			public function getTotal($dbconn, $userID){
-
-				//$this->dbconn = $dbconn;
-				//$this->userID = $userID;
-
-				$stmt = $dbconn->prepare("SELECT * FROM cart WHERE user_id=:id");
-				$stmt->bindParam(':id', $userID);
-
-				$stmt->execute();
-
-				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-
-				$statement = $dbconn->prepare("SELECT * FROM books WHERE book_id=:bi");
-				$statement->bindParam(':bi', $row['book_id']);
-				$statement->execute();
-
-				$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
-				$sub = substr($rowBook['price'], 1);
-
-				$this->total = $sub * $row['quantity'];
-
-				$this->totalPur += $this->total; 
-		
-				}
-
-			return $this->totalPur;
-	}	
-		# get total if user is not logged in
-		function getTotalTempCart($dbconn) {
-
-			$stmt = $dbconn->prepare("SELECT * FROM temp_cart");
-			
-				$stmt->execute();
-
-				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-
-				$statement = $dbconn->prepare("SELECT * FROM books WHERE book_id=:bi");
-				$statement->bindParam(':bi', $row['book_id']);
-				$statement->execute();
-
-				$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
-				$sub = substr($rowBook['price'], 1);
-
-				$this->total = $sub * $row['quantity'];
-
-				$this->totalPur += $this->total; 
-		
-				}
-
-			return $this->totalPur;
-		}
-
-			# method to insert into checkout
-			public function insertIntoCheckout($dbconn, $userID, $input, $tp){
-
-				$stmt = $dbconn->prepare("INSERT INTO checkout(phoneNumber, address, postCode, user_id, totalPurchase) 
-														VALUES(:pn, :ad, :pc, :ui, :tp)");
-
-				$data = [
-							':pn'=>$input['phoneNumber'],
-							':ad'=>$input['addy'],
-							':pc'=>$input['code'],
-							':ui'=>$userID,
-							':tp'=>$tp
-						];
-				$stmt->execute($data);
-
-				redirect("index.php?msge=Thank You very much for using our service, Your Goods Will be shipped to you within 2days");
-			}
-
-			# method for counting quantity in cart
-			public function quantity($dbconn, $userID){
-
-				$stmt = $dbconn->prepare("SELECT quantity FROM cart WHERE user_id=:id");
-				$stmt->bindParam(':id', $userID);
-
-				$stmt->execute();
-
-				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-						
-						$this->quantity = $row['quantity'];
-
-						$this->tq += $this->quantity;
-				}
-					return $this->tq;
-			}
-
-			# method for counting quantity when no user is logged in
-			public function quantitynotID($dbconn){
-
-				$stmt = $dbconn->prepare("SELECT quantity FROM temp_cart");
-				//$stmt->bindParam(':id', $userID);
-
-				$stmt->execute();
-
-				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-						
-						$this->quantity = $row['quantity'];
-
-						$this->tq += $this->quantity;
-				}
-					return $this->tq;
-			}
-
-} */
 
 ?>
