@@ -18,6 +18,7 @@
 
 		$id = $_SESSION['id'];
 
+
 ?>
 
  <div class="main">
@@ -39,7 +40,8 @@
         		# if user is not logged in, to insert into temporary cart table
 
 				if(!isset($_SESSION['id'])) {
-					$stmt = $conn->prepare("SELECT * FROM temp_cart");
+					$stmt = $conn->prepare("SELECT * FROM cart WHERE user_id=:id");
+          $stmt->bindParam(':id', $sid);
 					$stmt->execute();
 
 				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -63,13 +65,13 @@
           <td><p class="total"> <?php echo '$'.($sub * $row['quantity']) ?> </p></td>
           <td> 
 
-            <?php include 'updatefortempcart.php'; ?>
+            <?php include 'update.php'; ?>
           </td>
           <td>
-            <a href="<?php echo "deletefortempcart.php?cart_id=".$row['tempCart_id']; ?>" class="def-button remove-item">Remove Item</a>
+            <a href="<?php echo "delete.php?cart_id=".$row['cart_id']; ?>" class="def-button remove-item">Remove Item</a>
           </td>
         </tr>
-        		<?php } } ?>
+            <?php } } ?>
 
 
         		<?php
