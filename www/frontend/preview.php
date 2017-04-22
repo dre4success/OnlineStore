@@ -17,11 +17,13 @@
 
 		
 		$id = $_SESSION['id'];
+	
 
 		if(isset($_GET['book_id'])){
 			$item = getBookByID($conn, $_GET['book_id']);
 		}
 
+		# Validating Review Form
 		if(array_key_exists('submit', $_POST)) {
 			$clean = array_map('trim', $_POST);
 
@@ -29,6 +31,7 @@
 		}
 
 				$errors = [];
+		# Validating Add To Cart Form			
 		if(array_key_exists('enter', $_POST)) {
 
 			if(empty($_POST['quantity'])) {
@@ -40,11 +43,10 @@
 
 			$clean = array_map('trim', $_POST);
 
-				if(!$_SESSION){
+				if(!$_SESSION['id']){
 
 				# add to temporary cart if user is not logged in	
-				tempAddCart($conn, $item['book_id'], $clean);
-
+				addToCart($conn, $sid, $item['book_id'], $clean);
 					} 
 
 				else {
@@ -92,6 +94,8 @@
       </ul>
       <div class="add-comment">
         <h3 class="header">Add your comment</h3>
+
+        <!-- Review Form -->
         <form class="comment" action="<?php echo "preview.php?book_id=".$item['book_id']; ?>" method="POST">
           <textarea class="text-field" name="review" placeholder="write something"></textarea>
 
