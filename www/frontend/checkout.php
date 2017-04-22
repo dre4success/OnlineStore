@@ -21,6 +21,8 @@
 		# user ID
 		$id = $_SESSION['id'];
 
+		
+
 		# instantiating new Object Checkout if user is logged in
 		if(isset($_SESSION['id'])) {
 		$checkout = new Checkout();
@@ -32,25 +34,9 @@
 			{
 				$checkout = new Checkout();
 
-				$totalPurchase = '$'.$checkout->getTotalTempCart($conn);
+				$totalPurchase = '$'.$checkout->getTotal($conn, $sid);
 
 				$Tologin = '<a href="user_login.php">'."<em>Please Login To Checkout</em>".'</a>';
-
-				if(isset($Tologin)) {
-
-					$stmt = $conn->prepare("SELECT * FROM temp_cart");
-					$stmt->execute();
-					$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-					$statement = $conn->prepare("INSERT INTO cart(quantity, user_id, book_id) VALUES(:q, :u, :b)");
-					$data = [
-								':q'=>$row['quantity'],
-								':u'=>$id,
-								':b'=>$row['book_id']
-							];
-					$statement->execute($data);
-
-				}
 
 			}
 
@@ -58,6 +44,7 @@
 		# populating errors array
 		$errors = [];
 
+		# Validating Form for Inserting into Checkout Table
 		if(array_key_exists('chkt', $_POST)) {
 
 			if(empty($_POST['phoneNumber'])) {
@@ -89,6 +76,8 @@
 	<!-- main content starts here -->
   <div class="main">
     <div class="checkout-form">
+
+    	<-- Form For Checkout -->
       <form class="def-modal-form" action="checkout.php" method="POST">
         <div class="total-cost">
         														<!-- if user is not logged in, tell user to login before checkout -->
