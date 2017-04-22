@@ -19,6 +19,9 @@
 
 <?php session_start();
 
+    $sid = md5(session_id());
+      
+
    if(isset($_SESSION['logged']) == true && $_SESSION['logged']){
 ?>
 
@@ -63,7 +66,7 @@
             <?php } elseif(!isset($_SESSION['id'])) {
 
                $quantity = new Checkout();
-            $quant = $quantity->quantitynotID($conn);
+            $quant = $quantity->quantity($conn, $sid);
 
             ?>
               <p><?php echo $quant; ?></p>
