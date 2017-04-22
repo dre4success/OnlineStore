@@ -6,36 +6,39 @@
 		private $totalPur;
 		private $quantity;
 		private $tq = 0;
+		private $sub; //Price From Book Table Without the Dollar Sign
 		
 
-			//public function selectFromCart()
-
-			# method to get total purchase
-			public function getTotal($dbconn, $userID){
-
-
-				$stmt = $dbconn->prepare("SELECT * FROM cart WHERE user_id=:id");
-				$stmt->bindParam(':id', $userID);
-
-				$stmt->execute();
-
-				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-
+			public function GetItemPrice($dbconn, $bkid) {
 				$statement = $dbconn->prepare("SELECT * FROM books WHERE book_id=:bi");
-				$statement->bindParam(':bi', $row['book_id']);
+				$statement->bindParam(':bi', $bkid);
 				$statement->execute();
 
 				$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
-				$sub = substr($rowBook['price'], 1);
+				$this->sub = substr($rowBook['price'], 1);
 
-				$this->total = $sub * $row['quantity'];
+			}
 
-				$this->totalPur += $this->total; 
+
+			# method to get total purchase
+			public function getTotal($dbconn, $userID){
+				$stmt = $dbconn->prepare("SELECT * FROM cart WHERE user_id=:id");
+				$stmt->bindParam(':id', $userID);
+				$stmt->execute(); 
+
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
+					$this->GetItemPrice($dbconn, $row['book_id']);
+
+					$this->total = $this->sub * $row['quantity'];
+					$this->totalPur += $this->total; 
 		
 				}
+				return $this->totalPur;
+			}	
 
-			return $this->totalPur;
-	}	
+	
+
+
 		# get total if user is not logged in
 		function getTotalTempCart($dbconn) {
 
@@ -61,6 +64,7 @@
 			return $this->totalPur;
 		}
 
+
 			# method to insert into checkout
 			public function insertIntoCheckout($dbconn, $userID, $input, $tp){
 
@@ -79,6 +83,8 @@
 				redirect("index.php?msge=Thank You very much for using our service, Your Goods Will be shipped to you within 2days");
 			}
 
+
+
 			# method for counting quantity in cart
 			public function quantity($dbconn, $userID){
 
@@ -95,6 +101,7 @@
 				}
 					return $this->tq;
 			}
+
 
 			# method for counting quantity when no user is logged in
 			public function quantitynotID($dbconn){
