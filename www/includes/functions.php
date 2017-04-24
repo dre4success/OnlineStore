@@ -397,7 +397,7 @@
 			# execute prepared statement
 			$stmt->execute($data);
 
-				redirect("user_register.php?msg=You Have Been Successfully Registered");
+				redirect("user_login.php?msg=You Have Been Successfully Registered");
 		}
 
 		function displayErrorsUser($dummy, $what) {
