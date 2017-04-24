@@ -106,52 +106,6 @@
 
 	}
 
-	function fileUpload($dum_fil, $dum_err, $dum_name) {
-
-		define("MAX_FILE_SIZE", "2097152");
-
-		$ext = ["image/jpg", "image/jpeg", "image/png"];
-
-		
-	# be sure a file was selected..
-	if(empty($dum_fil[$dum_name]['name'])) {
-	$dum_err[] = "please choose a file";
-	}
-
-	#  check file size..
-	if($dum_fil[$dum_name]['size'] > MAX_FILE_SIZE) {
-		$dum_err[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
-	}
-
-		if(!in_array($dum_fil[$dum_name]['type'], $ext)) {
-		$dum_err[] = "invalid file type";
-	}
-
-		#generate random number to append
-	$rnd = rand(0000000000, 9999999999);
-
-	#strip filename for spaces
-	$strip_name = str_replace(" ", "_", $dum_fil[$dum_name]['name']);
-
-	$filename = $rnd.$strip_name;
-	$destination = 'uploads/'.$filename;
-
-	if(empty($dum_err)) {
-		
-		if(!move_uploaded_file($dum_fil[$dum_name]['tmp_name'], $destination)) {
-
-		$dum_err[] = "file upload failed";
-				}
-		echo "done";
-		}
-	 else {
-		foreach ($dum_err as $err) {
-			echo $err. '</br>';
-			}
-		}
-	
-	
-}
 
 	function UploadFile($file, $name, $uploadDir) {
 		$data = [];
@@ -505,17 +459,6 @@
 		}
 
 
-		function tempAddCart($dbconn, $bookID, $input){
-
-			$stmt = $dbconn->prepare("INSERT INTO temp_cart(quantity, book_id) VALUES(:qu,:bi)");
-
-			$data = [ ':qu'=> $input['quantity'],
-					  ':bi'=> $bookID,
-					];
-			$stmt->execute($data);
-		}
-
-
 		function addToCart($dbconn, $userID, $bookID, $input) {
 
 
@@ -545,21 +488,6 @@
 	}
 
 
-	# function for editing items in temporary cart
-	function editTempCart($dbconn, $cart){
-
-		$stmt = $dbconn->prepare("UPDATE temp_cart SET quantity=:qy WHERE tempCart_id=:ci");
-
-		$data = [
-					':qy'=> $cart['qty'],
-					':ci'=> $cart['cartid']
-				];
-		$stmt->execute($data);
-
-		redirect("cart.php");
-	}
-
-
 	# function for deleting item in cart
 	function delCart($dbconn, $cart) {
 
@@ -570,16 +498,24 @@
 				redirect("cart.php");
 	}
 
+	function insertIntoRecentlyViewed($dbconn, $userID, $bookID) {
 
-	# function for deleting item in temporary cart
-	function delTempCart($dbconn, $cart) {
+		$statement = $dbconn->prepare("SELECT * FROM recentlyViewed WHERE book_id=:bk AND user_id=:ud");
+		$statement->bindParam(':bk', $bookID);
+		$statement->bindParam(':ud', $userID);
+		$statement->execute();
+		$count = $statement->rowCount();
 
-		$stmt = $dbconn->prepare("DELETE FROM temp_cart WHERE tempCart_id=:c");
-									$stmt->bindParam(":c", $cart);
-									$stmt->execute();
-									
-				redirect("cart.php");
+			if($count == 0) {
+		$stmt = $dbconn->prepare("INSERT INTO recentlyViewed(book_id, user_id) VALUES(:bi, :ui)");
+
+		$data = [
+					':bi'=>$bookID,
+					':ui'=>$userID
+				];
+		
+		$stmt->execute($data);
+		}
 	}
-
 
 ?>
