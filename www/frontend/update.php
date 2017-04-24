@@ -1,23 +1,11 @@
 <?php
-
-
-
-		
-
-		
-					/*if(isset($_GET['cart_id'])){
-
-						$cat = getCartByID($conn, $_GET['cart_id']);
-					}*/
-				
-
-
+  
 				$errors = [];
 			if(array_key_exists('update', $_POST)){
 				
 			$clean = array_map('trim', $_POST);
 			editCart($conn, $clean);
-		}
+			}
 
 ?>
 					
