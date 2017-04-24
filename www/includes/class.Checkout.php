@@ -5,7 +5,7 @@
 	class Checkout {
 
 		private $total;
-		private $totalPur;
+		private $totalPur = 0;
 		private $quantity;
 		private $tq = 0; //Total Quantity
 		private $sub; //Price From Book Table Without the Dollar Sign
