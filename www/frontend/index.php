@@ -19,6 +19,8 @@
 		
 
 		$getit = topSelling($conn);
+
+    $id = $_SESSION['id'];
           
 ?>
 
@@ -79,27 +81,53 @@
         <div class="scroll-front"></div>
        <?php 
 
-      $recent = "Recently-Viewed-Items";
+    
+       if(!$_SESSION){
+             $stmt = $conn->prepare("SELECT * FROM recentlyViewed WHERE user_id=:ui");
+             $stmt->bindParam(':ui', $sid);
+             $stmt->execute(); 
+                
+              while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {  
 
-      $stmt = $conn->prepare("SELECT * FROM books WHERE flag=:tr");
-
-      $stmt->bindParam(':tr', $recent);
-
-      $stmt->execute();  
-
-                      
-              while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>  
+               $stamt = $conn->prepare("SELECT * FROM books WHERE book_id=:bi");
+               $stamt->bindParam(':bi', $row['book_id']);
+               $stamt->execute(); 
+               $rowb = $stamt->fetch(PDO::FETCH_ASSOC); ?>
+               
               <li class="book">        
-          <a href="<?php echo "preview.php?book_id=".$row['book_id']?>"><div class="book-cover" style="background: url('../<?php echo $row['file_path']; ?>');
+          <a href="<?php echo "preview.php?book_id=".$rowb['book_id']?>"><div class="book-cover" style="background: url('../<?php echo $rowb['file_path']; ?>');
                       background-size: cover;
                       background-position: center;
                       background-repeat: no-repeat;"></div></a>
-          <div class="book-price"><p><?php echo $row['price']; ?></p></div>
+          <div class="book-price"><p><?php echo $rowb['price']; ?></p></div>
               
 
         </li>
-          <?php } ?>
-     
+          <?php } } else { ?>
+          
+          <?php
+
+             $stmt = $conn->prepare("SELECT * FROM recentlyViewed WHERE user_id=:ui");
+             $stmt->bindParam(':ui', $id);
+             $stmt->execute(); 
+                
+              while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {  
+
+               $stamt = $conn->prepare("SELECT * FROM books WHERE book_id=:bi");
+               $stamt->bindParam(':bi', $row['book_id']);
+               $stamt->execute(); 
+               $rowb = $stamt->fetch(PDO::FETCH_ASSOC); ?>
+
+              <li class="book">        
+          <a href="<?php echo "preview.php?book_id=".$rowb['book_id']?>"><div class="book-cover" style="background: url('../<?php echo $rowb['file_path']; ?>');
+                      background-size: cover;
+                      background-position: center;
+                      background-repeat: no-repeat;"></div></a>
+          <div class="book-price"><p><?php echo $rowb['price']; ?></p></div>
+              
+
+        </li>
+        <?php } }?>
       </ul>
     </div>
     
