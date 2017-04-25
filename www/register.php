@@ -47,6 +47,12 @@
 				# eliminate unwanted spaces from values in the $_POST array
 				$clean = array_map('trim', $_POST);
 
+				# hashing password
+				$hash = password_hash($clean['password'], PASSWORD_BCRYPT);
+
+				# re-initialize password;
+				$clean['password'] = $hash;
+
 				doAdminRegister($conn, $clean);
 			}
 		}
@@ -56,9 +62,7 @@
 		<hr>
 		<form id="register"  action ="register.php" method ="POST">
 			<div>
-					<?php
-							
-					//if(isset($errors['fname'])) { echo '<span class="err">'. $errors['fname']. '</span>';}
+					<?php	
 					$display = displayErrors($errors, 'fname');
 					echo $display;
 					?>
@@ -71,7 +75,6 @@
 			</div>
 			<div>
 				<?php
-					//if(isset($errors['lname'])) {echo '<span class="err">'. $errors['lname']. '</span>';}
 					$display = displayErrors($errors, 'lname');
 					echo $display;
 				?>
@@ -82,7 +85,6 @@
 
 			<div>
 				<?php
-					//if(isset($errors['email'])) {echo '<span class="err">'. $errors['email']. '</span>';}
 					$display = displayErrors($errors, 'email');
 					echo $display;
 				?>
@@ -92,7 +94,6 @@
 			</div>
 			<div>
 				<?php
-					//if(isset($errors['password'])) {echo '<span class="err">'. $errors['password']. '</span>';}
 					$display = displayErrors($errors, 'password');
 					echo $display;
 				?>

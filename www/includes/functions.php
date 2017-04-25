@@ -3,9 +3,6 @@
 
 		function doAdminRegister($dbconn, $input) {
 
-			# hashing password
-			$hash = password_hash($input['password'], PASSWORD_BCRYPT);
-
 			# prepared statement
 			$stmt = $dbconn->prepare("INSERT INTO admin(firstname, lastname, email, hash) VALUES(:fn, :ln, :e, :h)");			
 
@@ -14,14 +11,14 @@
 					':fn' => $input['fname'],
 					':ln' => $input['lname'],
 					':e' => $input['email'],
-					':h' => $hash
+					':h' => $input['password']
 					];
 
 			# execute prepared statement
 			$stmt->execute($data);
 
-
 		}
+
 
 		function doesEmailExist($dbconn, $email) {
 			$result = false;
@@ -56,9 +53,7 @@
 
 		function adminLogin($dbconn, $enter) {
 					
-
 			$result = [];
-
 			
 			# prepared statement
 			$statement = $dbconn->prepare("SELECT * FROM admin WHERE email=:em");
@@ -76,7 +71,7 @@
 			# error handler, so if this is false, handle it and exit no need for else
 				redirect("login.php?msg=invalid email or password");
 				exit();
-			} else{
+			} else {
 				$result[] = true;
 				$result[] = $row;
 			}
