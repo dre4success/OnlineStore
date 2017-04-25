@@ -73,7 +73,9 @@
 
 			if($count !== 1 || !password_verify($enter['password'], $row['hash'])){
 					
-				$result[] = false;
+			# error handler, so if this is false, handle it and exit no need for else
+				redirect("login.php?msg=invalid email or password");
+				exit();
 			} else{
 				$result[] = true;
 				$result[] = $row;
@@ -81,6 +83,7 @@
 					
 				return $result;
 		}	
+
 
 		function redirect($loca){
 			header("Location: ".$loca);

@@ -30,16 +30,11 @@
 
 					$chk = adminLogin($conn, $clean);
 
-					if($chk[0]){
-
 						$_SESSION['id'] = $chk[1]['admin_id'];
 						$_SESSION['email'] = $chk[1]['email'];
-						//print_r($_SESSION); exit();
+						
 						redirect("home.php");
-					} else
-					{
-						redirect("login.php?msg=invalid email or password");
-					}
+					
 				}
 			}
 ?>
