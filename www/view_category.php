@@ -13,48 +13,16 @@
 		# include header
 		include 'includes/view.php';
 
-		authenticate();
+		LoginCheck();
 
-	/*	if(isset($_GET['del'])) {
-
-			if($_GET['del'] = "delete") {
-				delCat($conn, $_GET['category_id']);
-			}
-		}
-
-		if(array_key_exists('edit', $_POST)){
-			$clean = array_map('trim', $_POST);
-			editCat($conn, $clean);
-		} */
+	
 
 ?>
 		<div class="wrapper">
 		<h1 id="register-label">View Category</h1>
 		<hr>
 		<div id="stream">
-			
-				<?php
-				/*	if(isset($_GET['action'])){
-
-						if($_GET['action'] = "edit"){
-
-				?>
-
-			<h3>Edit Category</h3>
-
-				<form id="register" action ="view_category.php" method ="POST">
-
-				<input type="text" name="cat" placeholder="Category Name" value="<?php echo $_GET['category_name']; ?>">
-				<input type="hidden" name="cid" value="<?php echo $_GET['category_id']; ?>">
-				<input type="submit" name="edit" value="edit">
-
-				</form>
-					<?php
-				}
-			} */
-			?> 
 				
-
 			<table id="tab">
 				<thead>
 					<tr>
@@ -66,13 +34,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<!--	<tr>
-						<td>the knowledge gap</td>
-						<td>maja</td>
-						<td>January, 10</td>
-						<td><a href="#">edit</a></td>
-						<td><a href="#">delete</a></td>
-					</tr> -->
+				
 
 						<?php
 								$select = $conn->prepare("SELECT * FROM category");

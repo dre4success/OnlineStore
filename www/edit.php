@@ -16,7 +16,7 @@
 
 		$flag = ['Trending', 'Top-Selling', 'Recently-Viewed-Items'];
 
-		authenticate();
+		LoginCheck();
 
 			
 
