@@ -19,8 +19,10 @@
 		
 					if(isset($_GET['category_id'])){
 
-						$cat = getCategoryByID($conn, $_GET['category_id']);
+						$getcatID = $_GET['category_id'];
 					}
+
+					$cat = getCategoryByID($conn, $getcatID);
 				
 
 
@@ -30,8 +32,11 @@
 					$errors['cat'] = "Please enter a category name to change";
 				}	
 
+				if(empty($errors)){
 			$clean = array_map('trim', $_POST);
+			$clean['cid'] = $getcatID;
 			editCat($conn, $clean);
+			}
 		}
 
 ?>
@@ -49,7 +54,7 @@
 				<label>Category Name</label>
 				<input type="text" name="cat" placeholder="Category Name" value="<?php echo $cat['category_name']; ?>">
 				</div>
-				<input type="hidden" name="cid" value="<?php echo $cat['category_id']; ?>"> 
+				<!--<input type="hidden" name="cid" value="<?php //echo $cat['category_id']; ?>"> -->
 				<input type="submit" name="edit" value="edit">
 
 				</form>

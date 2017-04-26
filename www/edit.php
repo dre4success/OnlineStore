@@ -21,9 +21,10 @@
 			
 
 			if(isset($_GET['book_id'])){
-
-			$item = getBookByID($conn, $_GET['book_id']);
+				$bkid = $_GET['book_id'];
 			}
+			$item = getBookByID($conn, $_GET['book_id']);
+
 			$cat = getCategoryByID($conn, $item['category_id']);
 
 
@@ -82,6 +83,7 @@
 				if(empty($errors)){
 
 				$clean = array_map('trim', $_POST);
+				$clean['bk'] = $bkid;
 				editPro($conn, $clean, $destination);
 
 			}
@@ -151,7 +153,7 @@
 							</select>
 					</div>
 
-				<input type="hidden" name="bk" value="<?php echo $item['book_id']; ?>">
+			<!--<input type="hidden" name="bk" value="<?php //echo $item['book_id']; ?>"> -->
 				<input type="submit" name="edit" value="edit">
 
 				</form>
