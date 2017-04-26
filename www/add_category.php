@@ -31,6 +31,7 @@
 				$clean = array_map('trim', $_POST);
 
 				insertCategory($conn, $clean);
+				redirect("view_category.php?msg=Category successfully added");
 			}
 		}
 

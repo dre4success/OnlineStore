@@ -49,7 +49,7 @@
 				<label>Category Name</label>
 				<input type="text" name="cat" placeholder="Category Name" value="<?php echo $cat['category_name']; ?>">
 				</div>
-				<input type="hidden" name="cid" value="<?php echo $cat['category_id']; ?>">
+				<input type="hidden" name="cid" value="<?php echo $cat['category_id']; ?>"> 
 				<input type="submit" name="edit" value="edit">
 
 				</form>
