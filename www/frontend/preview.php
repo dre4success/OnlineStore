@@ -15,6 +15,10 @@
 		# include header
 		include '../includes/user_header.php';
 
+		# include RecentlyViewed Class
+		include '../includes/class.RecentlyViewed.php';
+
+		$recent = new RecentlyViewed();
 		
 		$id = $_SESSION['id'];
 	
@@ -23,10 +27,12 @@
 			$item = getBookByID($conn, $_GET['book_id']);
 
 			if(!$_SESSION) {
-				insertIntoRecentlyViewed($conn, $sid, $item['book_id']);
-			} else
+				$recent->insertIntoRecentlyViewed($conn, $sid, $item['book_id']);
+			} 
+
+			else
 			{
-				insertIntoRecentlyViewed($conn, $id, $item['book_id']);
+				$recent->insertIntoRecentlyViewed($conn, $id, $item['book_id']);
 			}
 		}
 
