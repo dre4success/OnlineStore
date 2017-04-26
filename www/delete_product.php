@@ -14,7 +14,7 @@ session_start();
 		# include header
 		include 'includes/view.php';
 
-		authenticate();
+		LoginCheck();
 
 
 		if(isset($_GET['book_id'])) {

@@ -14,7 +14,7 @@
 		# include header
 		include 'includes/view.php';
 
-		authenticate();
+		LoginCheck();
 
 		
 					if(isset($_GET['category_id'])){
