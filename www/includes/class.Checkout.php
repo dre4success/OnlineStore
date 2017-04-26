@@ -9,7 +9,7 @@
 		private $quantity;
 		private $tq = 0; //Total Quantity
 		private $sub; //Price From Book Table Without the Dollar Sign
-		private $stmt;
+		//private $stmt;
 
 
 
@@ -29,10 +29,11 @@
 			# Method To Select From Cart Table
 			private function SelectFromCart($dbconn, $userID){
 
-				$this->stmt = $dbconn->prepare("SELECT * FROM cart WHERE user_id=:id");
-				$this->stmt->bindParam(':id', $userID);
-				$this->stmt->execute();
+				$stmt = $dbconn->prepare("SELECT * FROM cart WHERE user_id=:id");
+				$stmt->bindParam(':id', $userID);
+				$stmt->execute();
 
+				return $stmt;
 			}
 
 
@@ -40,9 +41,9 @@
 			# Method To Get Total Purchase
 			public function getTotal($dbconn, $userID){
 		
-				$this->SelectFromCart($dbconn, $userID);
+				$cart = $this->SelectFromCart($dbconn, $userID);
 
-				while($row = $this->stmt->fetch(PDO::FETCH_ASSOC)) { 
+				while($row = $cart->fetch(PDO::FETCH_ASSOC)) { 
 
 					$this->GetItemPrice($dbconn, $row['book_id']);
 
@@ -58,9 +59,9 @@
 			# method for counting quantity in cart
 			public function quantity($dbconn, $userID){
 
-				$this->SelectFromCart($dbconn, $userID);
+				$cart = $this->SelectFromCart($dbconn, $userID);
 
-				while ($row = $this->stmt->fetch(PDO::FETCH_ASSOC)) {
+				while ($row = $cart->fetch(PDO::FETCH_ASSOC)) {
 						
 						$this->quantity = $row['quantity'];
 
