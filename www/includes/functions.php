@@ -407,8 +407,9 @@
 		return $row;
 	}
 
+
 		# function to view comment or review by a user
-		function comment($dbconn, $bookid) {
+		function ViewReview($dbconn, $bookid) {
 
 					$result = "";
 
@@ -444,6 +445,7 @@
 			}
 			return $result;
 		}
+
 
 		function insertIntoReview($dbconn, $userID, $bookid, $input){
 

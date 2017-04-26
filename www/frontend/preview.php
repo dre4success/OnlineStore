@@ -93,7 +93,7 @@
       		<?php
       				# assigning function to view review to variable com
 
-      				$com = comment($conn, $item['book_id']);
+      				$com = ViewReview($conn, $item['book_id']);
       				echo $com;
       		 ?>
        
