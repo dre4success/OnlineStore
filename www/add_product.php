@@ -13,17 +13,22 @@
 		# include header
 		include 'includes/view.php';
 
+		# to showcase which level each book is
 		$flag = ['Trending', 'Top-Selling', 'Recently-Viewed-Items'];
 
+		# To check if admin is logged in
 		LoginCheck();
 
-		
+		# file destination in db
+		$destination = "";
+
 		# caching errors
+		$errors = [];
 
-			$errors = [];
+		# maximum file size
+		define("MAX_FILE_SIZE", "2097152");
 
-			define("MAX_FILE_SIZE", "2097152");
-
+		# file extensions allowed
 		$ext = ["image/jpg", "image/jpeg", "image/png"];
 
 
@@ -33,13 +38,13 @@
 			$errors[] = "please choose a file";
 			}
 
-	#  check file size..
-		if($_FILES['book']['size'] > MAX_FILE_SIZE) {
-		$errors[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
-		}
+			#  check file size..
+			if($_FILES['book']['size'] > MAX_FILE_SIZE) {
+			$errors[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
+			}
 
-		if(!in_array($_FILES['book']['type'], $ext)) {
-		$errors[] = "invalid file type";
+			if(!in_array($_FILES['book']['type'], $ext)) {
+			$errors[] = "invalid file type";
 			}
 
 		
@@ -106,7 +111,7 @@
 					<label>Choose book</label>
 					
 				<input type="file" name="book">
-					</div>
+				</div>
 					
 				<div>
 				<?php
@@ -170,7 +175,7 @@
 					</select>
 				</div>
 
-					<div>
+				<div>
 							<?php
 								$display = displayErrors($errors, 'flag');
 								echo $display;
@@ -183,7 +188,7 @@
 									<option value="<?php echo $fl; ?>"> <?php echo $fl; ?> </option>
 									<?php } ?>
 							</select>
-					</div>
+				</div>
 
 					<input type="submit" name="save" value="upload">
 

@@ -16,7 +16,18 @@
 		# include header
 		include '../includes/user_header.php'; 
 
+    include '../includes/class.Pagination.php';
+
     $uid = $_SESSION['id'];
+
+    $paginate = new Pagination();
+
+    
+
+
+    //$start = 0;
+
+    
 
 ?>
 
@@ -47,11 +58,38 @@
         
 
         		<?php 
-        			$stmt = $conn->prepare("SELECT * FROM books WHERE category_id=:id");
-					$stmt->bindParam(':id', $_GET['cat_id']);
+            if(isset($_GET['cat_id'])) {
+              $catID = $_GET['cat_id'];
+            } else {
+              echo " i got here";
+              $catID = firstPreview($conn);
+            }
 
-					$stmt->execute();
-				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+            if(isset($_GET['p'])) {
+
+              $page = $_GET['p'];
+            }
+
+            else{
+              $page = $paginate->all($conn, $catID);
+            }
+
+              if(isset($_GET['s'])) {
+
+                $start = $_GET['s'];
+                
+              } 
+              else {
+                $start = 0;
+                
+              }
+        			$stmt = $conn->prepare("SELECT * FROM books WHERE category_id=:id LIMIT :start, 2");
+					    $stmt->bindParam(':id', $catID); 
+              $j = (int)$start;
+              $stmt->bindParam(':start', $j, PDO::PARAM_INT);
+					    $stmt->execute();
+
+				      while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
 
 				<li class="book">
 
@@ -66,8 +104,22 @@
 
       </ul>
       <div class="actions">
-        <button class="def-button previous">Previous</button>
-        <button class="def-button next">Next</button>
+          <?php
+            $curpage = ceil($start / 2) + 1;
+            $start = ($curpage - 1) * 2;
+            $next = $start + 2;
+            $prev = $start - 2;
+            echo $curpage;
+            if($start > 0 ) {
+              echo '<a href="catalogue.php?p='.$page.'&s='.$prev.'&cat_id='.$catID.'"><button class="def-button next">Prev</button></a>';
+            }
+            
+            if($curpage != $page) {
+              echo '<a href="catalogue.php?p='.$page.'&s='.$next.'&cat_id='.$catID.'"><button class="def-button next">Next</button></a>';
+            }
+          ?>
+        <!-- <button class="def-button previous">Previous</button>
+        <button class="def-button next">Next</button> -->
       </div>
     </div>
     <div class="recently-viewed-books horizontal-book-list">

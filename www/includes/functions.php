@@ -527,4 +527,11 @@
 		}
 	}
 
+	function firstPreview($dbconn) {
+		$stmt = $dbconn->prepare("SELECT * FROM category LIMIT 0, 1");
+		$stmt->execute();
+
+		return $stmt->fetch(PDO::FETCH_BOTH)[0];
+	}
+
 ?>
