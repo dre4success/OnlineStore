@@ -527,11 +527,24 @@
 		}
 	}
 
+<<<<<<< HEAD
 	function firstPreview($dbconn) {
 		$stmt = $dbconn->prepare("SELECT * FROM category LIMIT 0, 1");
 		$stmt->execute();
 
 		return $stmt->fetch(PDO::FETCH_BOTH)[0];
+=======
+	function editProImage($dbconn, $input, $dest){
+
+		$stmt = $dbconn->prepare("UPDATE books SET file_path=:fp WHERE book_id=:b");
+
+		$data = [
+					':fp'=> $dest,
+					':b'=> $input['bk']
+				];
+
+		$stmt->execute($data);
+>>>>>>> master
 	}
 
 ?>

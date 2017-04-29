@@ -19,6 +19,7 @@
 		# To check if admin is logged in
 		LoginCheck();
 
+<<<<<<< HEAD
 		# file destination in db
 		$destination = "";
 
@@ -26,6 +27,12 @@
 		$errors = [];
 
 		# maximum file size
+=======
+		
+		# caching errors
+		$errors = [];
+
+>>>>>>> master
 		define("MAX_FILE_SIZE", "2097152");
 
 		# file extensions allowed
@@ -47,7 +54,6 @@
 			$errors[] = "invalid file type";
 			}
 
-		
 			if(empty($_POST['title'])) {
 				$errors['title'] = "Enter Book's Title";
 			}
