@@ -16,7 +16,9 @@
 		# include header
 		include '../includes/user_header.php'; 
 
-		$id = $_SESSION['id'];
+		if(isset($_SESSION['id'])){
+      $id = $_SESSION['id'];
+    }
 
 
 ?>
