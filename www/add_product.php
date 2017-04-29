@@ -19,7 +19,6 @@
 		# To check if admin is logged in
 		LoginCheck();
 
-<<<<<<< HEAD
 		# file destination in db
 		$destination = "";
 
@@ -27,17 +26,13 @@
 		$errors = [];
 
 		# maximum file size
-=======
+		define("MAX_FILE_SIZE", "2097152");
 		
 		# caching errors
 		$errors = [];
 
->>>>>>> master
-		define("MAX_FILE_SIZE", "2097152");
-
 		# file extensions allowed
 		$ext = ["image/jpg", "image/jpeg", "image/png"];
-
 
 		if(array_key_exists('save', $_POST)) {
 
