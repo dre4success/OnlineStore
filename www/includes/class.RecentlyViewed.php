@@ -31,37 +31,28 @@
 				];
 		
 		$stmt->execute($data);
+			}
 		}
-	}
 
 
-		private function selectFromRecentlyViewed($dbconn, $userID) {
+		public function selectFromRecentlyViewed($dbconn, $userID) {
 
-			 $stmt = $dbconn->prepare("SELECT * FROM recentlyViewed WHERE user_id=:ui");
-             $stmt->bindParam(':ui', $sid);
+			 $stmt = $dbconn->prepare("SELECT * FROM recentlyViewed WHERE user_id=:ui ORDER BY recent_id DESC LIMIT 4 ");
+             $stmt->bindParam(':ui', $userID);
              $stmt->execute(); 
                 
              return $stmt;
+             
          }
 
-        private function selectFromBook($dbconn, $bkid){
+        public function selectFromBook($dbconn, $bkid){
 
                $stmt = $dbconn->prepare("SELECT * FROM books WHERE book_id=:bi");
                $stmt->bindParam(':bi', $bkid);
                $stmt->execute(); 
-               
+              
                return $stmt;
-	}
-
-	public function ViewRecent($dbconn, $userID){
-
-			$bk = $this->selectFromRecentlyViewed($dbconn, $userID);
-         	 while($row = $bk->fetch(PDO::FETCH_ASSOC)) {  
-         	 	$statement = $this->selectFromBook($dbconn, $row['book_id']);
-         	 	$this->result = $statement->fetch(PDO::FETCH_ASSOC);
 		}
 
-		return $this->result;
-	} 
-         
+	
 }
