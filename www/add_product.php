@@ -19,10 +19,9 @@
 
 		
 		# caching errors
+		$errors = [];
 
-			$errors = [];
-
-			define("MAX_FILE_SIZE", "2097152");
+		define("MAX_FILE_SIZE", "2097152");
 
 		$ext = ["image/jpg", "image/jpeg", "image/png"];
 
@@ -33,16 +32,15 @@
 			$errors[] = "please choose a file";
 			}
 
-	#  check file size..
-		if($_FILES['book']['size'] > MAX_FILE_SIZE) {
-		$errors[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
-		}
-
-		if(!in_array($_FILES['book']['type'], $ext)) {
-		$errors[] = "invalid file type";
+			#  check file size..
+			if($_FILES['book']['size'] > MAX_FILE_SIZE) {
+			$errors[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
 			}
 
-		
+			if(!in_array($_FILES['book']['type'], $ext)) {
+			$errors[] = "invalid file type";
+			}
+
 			if(empty($_POST['title'])) {
 				$errors['title'] = "Enter Book's Title";
 			}
