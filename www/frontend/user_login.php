@@ -35,21 +35,16 @@
 
 					$chk = UserLogin($conn, $clean);
 
-					if($chk[0]){
 
 						$_SESSION['logged'] = true;
 						$_SESSION['username'] = $chk[1]['username'];
-						$_SESSION['id'] = $chk[1]['user_id'];
+						$_SESSION['id'] = 	 $chk[1]['user_id'];
 						$_SESSION['email'] = $chk[1]['email'];
 						$_SESSION['fname'] = $chk[1]['firstname'];
 						$_SESSION['lname'] = $chk[1]['lastname'];
 
-						//print_r($_SESSION); exit();
+						
 						redirect("index.php");
-					} else
-					{
-						redirect("user_login.php?msg=invalid email or password");
-					}
 				
 			}
 		}
