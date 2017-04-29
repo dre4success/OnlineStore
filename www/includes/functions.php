@@ -383,7 +383,8 @@
 
 			if($count !== 1 || !password_verify($enter['password'], $row['hash'])){
 					
-				$result[] = false;
+				redirect("user_login.php?msg=invalid email or password");
+				exit();
 			} else{
 				$result[] = true;
 				$result[] = $row;
@@ -392,7 +393,7 @@
 				return $result;
 		}	
 
-		function topSelling($dbconn) {
+		function topSelling($dbconn, $cb) {
 
 			$tim = "Top-Selling";
 
@@ -404,8 +405,21 @@
 
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		return $row;
+			$cb($row);
 	}
+
+		function trending($dbconn, $cb){
+			 $trend = "Trending";
+
+		     $stmt = $dbconn->prepare("SELECT * FROM books WHERE flag=:tr");
+
+		     $stmt->bindParam(':tr', $trend);
+
+		     $stmt->execute(); 
+
+		     $cb($stmt); 
+
+		}
 
 
 		# function to view comment or review by a user
