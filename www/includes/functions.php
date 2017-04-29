@@ -527,4 +527,16 @@
 		}
 	}
 
+	function editProImage($dbconn, $input, $dest){
+
+		$stmt = $dbconn->prepare("UPDATE books SET file_path=:fp WHERE book_id=:b");
+
+		$data = [
+					':fp'=> $dest,
+					':b'=> $input['bk']
+				];
+
+		$stmt->execute($data);
+	}
+
 ?>
