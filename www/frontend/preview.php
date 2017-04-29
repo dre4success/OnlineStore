@@ -20,27 +20,30 @@
 
 		$recent = new RecentlyViewed();
 		
-		$id = $_SESSION['id'];
+		if(isset($_SESSION['id'])){
+    		$uid = $_SESSION['id'];
+    	}
 	
 
 		if(isset($_GET['book_id'])){
 			$item = getBookByID($conn, $_GET['book_id']);
+			}
 
-			if(!$_SESSION) {
-				$recent->insertIntoRecentlyViewed($conn, $sid, $item['book_id']);
+		if(!isset($_SESSION['id'])) {
+			$recent->insertIntoRecentlyViewed($conn, $sid, $item['book_id']);
 			} 
 
-			else
+		else
 			{
-				$recent->insertIntoRecentlyViewed($conn, $id, $item['book_id']);
+				$recent->insertIntoRecentlyViewed($conn, $uid, $item['book_id']);
 			}
-		}
+		
 
 		# Validating Review Form
 		if(array_key_exists('submit', $_POST)) {
 			$clean = array_map('trim', $_POST);
 
-			insertIntoReview($conn, $id, $item['book_id'], $clean);
+			insertIntoReview($conn, $uid, $item['book_id'], $clean);
 		}
 
 				$errors = [];
@@ -109,11 +112,11 @@
 
         <!-- Review Form -->
         <form class="comment" action="<?php echo "preview.php?book_id=".$item['book_id']; ?>" method="POST">
+        
           <textarea class="text-field" name="review" placeholder="write something"></textarea>
 
           <button class="def-button post-comment" type="submit" name="submit">Upload comment</button>
 
-         <!--<input type="submit" class="def-button post-comment" name="submit" value="Upload comment"> -->
         </form>
       </div>
     </div>
