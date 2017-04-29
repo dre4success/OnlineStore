@@ -61,7 +61,7 @@
             if(isset($_GET['cat_id'])) {
               $catID = $_GET['cat_id'];
             } else {
-              echo " i got here";
+            
               $catID = firstPreview($conn);
             }
 
@@ -109,7 +109,6 @@
             $start = ($curpage - 1) * 2;
             $next = $start + 2;
             $prev = $start - 2;
-            echo $curpage;
             if($start > 0 ) {
               echo '<a href="catalogue.php?p='.$page.'&s='.$prev.'&cat_id='.$catID.'"><button class="def-button next">Prev</button></a>';
             }
