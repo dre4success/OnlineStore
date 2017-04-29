@@ -16,53 +16,56 @@
 		# include header
 		include '../includes/user_header.php'; 
 
-		
+    # include RecentlyViewed Class
+    include '../includes/class.RecentlyViewed.php';
 
-		$getit = topSelling($conn);
+    # instantiating object for recently viewed
+    $recent = new RecentlyViewed();
 
-    $id = $_SESSION['id'];
-          
+    if(isset($_SESSION['id'])){
+      $uid = $_SESSION['id'];
+    }
 ?>
 
 	 <!-- main content starts here -->
   <div class="main">      
-    <div class="book-display">              
-    			
-      <a href="<?php echo "preview.php?book_id=".$getit['book_id']?>"><div class="display-book" style="background: url('../<?php echo $getit['file_path']; ?>');
+    <div class="book-display">         
+
+    			   <?php 
+                  topSelling($conn, function($data) {
+             ?>
+
+      <a href="<?php echo "preview.php?book_id=".$data['book_id']?>"><div class="display-book" 
+               style="background: url('../<?php echo $data['file_path']; ?>');
   										background-size: cover;
   										background-position: center;
   										background-repeat: no-repeat;"></div></a>
      <div class="info">
-        <h2 class="book-title"><?php echo $getit['title']; ?></h2>
-        <h3 class="book-author"><?php echo $getit['author']; ?></h3>
-        <h3 class="book-price"><?php echo $getit['price']; ?></h3>
-        			
-        	<form>
+        <h2 class="book-title"><?php echo $data['title']; ?></h2>
+        <h3 class="book-author"><?php echo $data['author']; ?></h3>
+        <h3 class="book-price"><?php echo $data['price']; ?></h3>
+        			<?php });?>
+
+        	<!--<form>
           <label for="book-amout">Quantity</label>
           <input type="number" class="book-amount text-field">
           <input class="def-button add-to-cart" type="submit" name="" value="Add to cart">
-        </form>
+        </form> -->
       </div>
     </div>
     <div class="trending-books horizontal-book-list">
       <h3 class="header">Trending</h3>
       <ul class="book-list">
         
-
       <?php 
 
-      $trend = "Trending";
-
-      $stmt = $conn->prepare("SELECT * FROM books WHERE flag=:tr");
-
-      $stmt->bindParam(':tr', $trend);
-
-      $stmt->execute();  
-
+              trending($conn, function($data){
                       
-              while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>  
-              <li class="book">        
-          <a href="<?php echo "preview.php?book_id=".$row['book_id']?>"><div class="book-cover" style="background: url('../<?php echo $row['file_path']; ?>');
+              while($row = $data->fetch(PDO::FETCH_ASSOC)) { ?>  
+
+          <li class="book">        
+          <a href="<?php echo "preview.php?book_id=".$row['book_id']?>"><div class="book-cover" 
+               style="background: url('../<?php echo $row['file_path']; ?>');
                       background-size: cover;
                       background-position: center;
                       background-repeat: no-repeat;"></div></a>
@@ -70,7 +73,8 @@
               
 
         </li>
-          <?php } ?>
+        
+          <?php } });?>
       
       </ul>
     </div>
@@ -79,55 +83,11 @@
       <ul class="book-list">
         <div class="scroll-back"></div>
         <div class="scroll-front"></div>
-       <?php 
 
-    
-       if(!$_SESSION){
-             $stmt = $conn->prepare("SELECT * FROM recentlyViewed WHERE user_id=:ui");
-             $stmt->bindParam(':ui', $sid);
-             $stmt->execute(); 
-                
-              while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {  
-
-               $stamt = $conn->prepare("SELECT * FROM books WHERE book_id=:bi");
-               $stamt->bindParam(':bi', $row['book_id']);
-               $stamt->execute(); 
-               $rowb = $stamt->fetch(PDO::FETCH_ASSOC); ?>
-               
-              <li class="book">        
-          <a href="<?php echo "preview.php?book_id=".$rowb['book_id']?>"><div class="book-cover" style="background: url('../<?php echo $rowb['file_path']; ?>');
-                      background-size: cover;
-                      background-position: center;
-                      background-repeat: no-repeat;"></div></a>
-          <div class="book-price"><p><?php echo $rowb['price']; ?></p></div>
-              
-
-        </li>
-          <?php } } else { ?>
-          
-          <?php
-
-             $stmt = $conn->prepare("SELECT * FROM recentlyViewed WHERE user_id=:ui");
-             $stmt->bindParam(':ui', $id);
-             $stmt->execute(); 
-                
-              while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {  
-
-               $stamt = $conn->prepare("SELECT * FROM books WHERE book_id=:bi");
-               $stamt->bindParam(':bi', $row['book_id']);
-               $stamt->execute(); 
-               $rowb = $stamt->fetch(PDO::FETCH_ASSOC); ?>
-
-              <li class="book">        
-          <a href="<?php echo "preview.php?book_id=".$rowb['book_id']?>"><div class="book-cover" style="background: url('../<?php echo $rowb['file_path']; ?>');
-                      background-size: cover;
-                      background-position: center;
-                      background-repeat: no-repeat;"></div></a>
-          <div class="book-price"><p><?php echo $rowb['price']; ?></p></div>
-              
-
-        </li>
-        <?php } }?>
+            <?php
+              # include recently viewed books
+              include 'recentlyviewed.php';
+            ?>
       </ul>
     </div>
     
