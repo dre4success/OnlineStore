@@ -19,8 +19,9 @@
 		include_once '../includes/class.Checkout.php';
 
 		# user ID
-		$id = $_SESSION['id'];
-
+		if(isset($_SESSION['id'])){
+			$uid = $_SESSION['id'];
+			}
 		
 
 		# instantiating new Object Checkout if user is logged in
@@ -28,7 +29,7 @@
 			
 			$checkout = new Checkout();
 
-			$totalPurchase = '$'.$checkout->getTotal($conn, $id);
+			$totalPurchase = '$'.$checkout->getTotal($conn, $uid);
 
 		} else # if user is not logged in, instantiating object to get total
 
@@ -62,7 +63,7 @@
 
 				$clean = array_map('trim', $_POST);
 
-				$checkout->insertIntoCheckout($conn, $id, $clean, $totalPurchase);
+				$checkout->insertIntoCheckout($conn, $uid, $clean, $totalPurchase);
 			}
 		}
 		
