@@ -17,7 +17,7 @@
 		include '../includes/user_header.php'; 
 
 		if(isset($_SESSION['id'])){
-      $id = $_SESSION['id'];
+      $uid = $_SESSION['id'];
     }
 
 
@@ -39,21 +39,15 @@
         <tr>
         		<?php 
         		
-        		# if user is not logged in, to insert into temporary cart table
-
 				if(!isset($_SESSION['id'])) {
-					$stmt = $conn->prepare("SELECT * FROM cart WHERE user_id=:id");
-          $stmt->bindParam(':id', $sid);
-					$stmt->execute();
 
-				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          $data = selectFromCart($conn, $sid);
+
+				  while ($row = $data->fetch(PDO::FETCH_ASSOC)) {
 				
-				$statement = $conn->prepare("SELECT * FROM books WHERE book_id=:bi");
-				$statement->bindParam(':bi', $row['book_id']);
-				$statement->execute();
-				$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
-				
-        		?>
+          $rowBook = getBookByID($conn, $row['book_id']); 
+
+          ?>
 
           <td><div class="book-cover" style="background: url('../<?php echo $rowBook['file_path'] ?>');
   										background-size: cover;
@@ -63,11 +57,12 @@
           <td><p class="book-price"><?php echo $rowBook['price'] ?></p></td>
           <td><p class="quantity"><?php echo $row['quantity'] ?></p></td>
 
-          			<?php $sub = substr($rowBook['price'], 1) ?>
+          	                    <?php $sub = substr($rowBook['price'], 1) ?>
           <td><p class="total"> <?php echo '$'.($sub * $row['quantity']) ?> </p></td>
           <td> 
 
             <?php include 'update.php'; ?>
+
           </td>
           <td>
             <a href="<?php echo "delete.php?cart_id=".$row['cart_id']; ?>" class="def-button remove-item">Remove Item</a>
@@ -78,21 +73,14 @@
 
         		<?php
 
-        			# if user is logged in, to insert into cart table
+        		if(isset($_SESSION['id'])){
 
-        			if(isset($_SESSION['id'])){
+        			$data = selectFromCart($conn, $uid);
 
-        				$stmt = $conn->prepare("SELECT * FROM cart WHERE user_id=:id");
-        				$stmt->bindParam(':id', $id);
-						$stmt->execute();
-
-						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+						  while ($row = $data->fetch(PDO::FETCH_ASSOC)) {
 				
-						$statement = $conn->prepare("SELECT * FROM books WHERE book_id=:bi");
-						$statement->bindParam(':bi', $row['book_id']);
-						$statement->execute();
+						  $rowBook = getBookByID($conn, $row['book_id']);
 
-						$rowBook = $statement->fetch(PDO::FETCH_ASSOC);
         		?>
 
         		 <td><div class="book-cover" style="background: url('../<?php echo $rowBook['file_path'] ?>');
