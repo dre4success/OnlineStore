@@ -561,4 +561,12 @@
 
 	}
 
+	function selectFromCart($dbconn, $userID){
+		$stmt = $dbconn->prepare("SELECT * FROM cart WHERE user_id=:id");
+        $stmt->bindParam(':id', $userID);
+		$stmt->execute();
+
+		return $stmt;
+	}
+
 ?>
