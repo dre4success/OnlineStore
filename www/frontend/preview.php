@@ -68,7 +68,7 @@
 				else {
 
 				# add to cart if user is logged in
-				addToCart($conn, $id, $item['book_id'], $clean);
+				addToCart($conn, $uid, $item['book_id'], $clean);
 					}
 
 			redirect("preview.php?book_id=".$item['book_id']);
