@@ -371,7 +371,7 @@
 
 			
 			# prepared statement
-			$statement = $dbconn->prepare("SELECT * FROM user WHERE email=:em");
+			$statement = $dbconn->prepare("SELECT user_id, username, hash FROM user WHERE email=:em");
 			
 			# bind params
 			$statement->bindParam(":em", $enter['email']);

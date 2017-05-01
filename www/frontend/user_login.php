@@ -34,16 +34,10 @@
 					$clean = array_map('trim', $_POST);
 
 					$chk = UserLogin($conn, $clean);
-
-
-						$_SESSION['logged'] = true;
+					
 						$_SESSION['username'] = $chk[1]['username'];
-						$_SESSION['id'] = 	 $chk[1]['user_id'];
-						$_SESSION['email'] = $chk[1]['email'];
-						$_SESSION['fname'] = $chk[1]['firstname'];
-						$_SESSION['lname'] = $chk[1]['lastname'];
+						$_SESSION['id'] = $chk[1]['user_id'];
 
-						
 						redirect("index.php");
 				
 			}

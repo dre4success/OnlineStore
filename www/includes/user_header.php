@@ -22,7 +22,7 @@
     $sid = md5(session_id());
       
 
-   if(isset($_SESSION['logged']) == true && $_SESSION['logged']){
+   if(isset($_SESSION['id'])){
 ?>
 
   <li class="top-nav-listItem login"><?php  echo $_SESSION['username']?></li>
