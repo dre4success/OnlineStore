@@ -11,13 +11,16 @@
 			//private $start;
 
 				
-				public function query($dbconn, $catid) {
+				public function query($dbconn, $catid, $page) {
 					
+					$page = $this->page;
+					$this->offset = ($this->page - 1) * $this->bookPerPage;
 
 					$stmt = $dbconn->prepare("SELECT * FROM books WHERE category_id=:id LIMIT $this->offset, $this->bookPerPage");
 					$stmt->bindParam(':id', $catid);
 
-					$stmt->execute();
+					$stmt->execute(); 
+     				return $stmt;
 				}
 
 				public function all($dbconn, $catid) {

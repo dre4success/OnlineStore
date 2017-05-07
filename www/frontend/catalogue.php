@@ -30,12 +30,6 @@
 
     $paginate = new Pagination();
 
-    
-
-
-    //$start = 0;
-
-    
 
 ?>
 
@@ -80,7 +74,8 @@
 					    $stmt->bindParam(':id', $catID); 
               $j = (int)$start;
               $stmt->bindParam(':start', $j, PDO::PARAM_INT);
-					    $stmt->execute();
+					    $stmt->execute(); 
+             // $stmt = $paginate->query($conn, $catID, $page);
 
 				      while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
 

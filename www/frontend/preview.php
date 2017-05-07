@@ -90,7 +90,7 @@
         
         <form action="<?php echo "preview.php?book_id=".$item['book_id']; ?>" method="POST">
           <label for="book-amout">Quantity</label>
-          <input type="number" class="book-amount text-field" name="quantity" >
+          <input type="number" min="0" class="book-amount text-field" name="quantity" >
           <input class="def-button add-to-cart" type="submit" name="enter" value="Add to cart">
         </form>
       </div>

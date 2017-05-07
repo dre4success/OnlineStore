@@ -546,6 +546,7 @@
 		$stmt->execute();
 
 		return $stmt->fetch(PDO::FETCH_BOTH)[0];
+		
 		}
 
 	function editProImage($dbconn, $input, $dest){
